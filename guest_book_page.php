@@ -98,47 +98,54 @@
                                 <div class="col">
                                     <form class="needs-validation" novalidate action="" method="POST">
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="guest_name">Nama Tamu</label>
-                                                <input type="text" class="form-control" name="guest_name" id="guest_name" required>
-                                                <div class="invalid-feedback">Harap isi kolom nama tamu.</div>
+                                            <div class="form-group col-md-8">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="guest_name">Nama Tamu</label>
+                                                        <input type="text" class="form-control" name="guest_name" id="guest_name" required>
+                                                        <div class="invalid-feedback">Harap isi kolom nama tamu.</div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="guest_phone_number">Nomor Handphone</label>
+                                                        <input type="text" class="form-control" name="guest_phone_number" id="guest_phone_number" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="visit_date">Tanggal</label>
+                                                        <input type="date" class="form-control" name="visit_date" id="visit_date" value="<?= Date("Y-m-d"); ?>" readonly required>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="visit_time">Waktu</label>
+                                                        <input type="time" class="form-control" name="visit_time" id="visit_time" value="<?= Date("H:i"); ?>" readonly required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="guest_agency">Asal Instansi</label>
+                                                        <input type="text" class="form-control" name="guest_agency" id="guest_agency" required>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="guest_address">Alamat</label>
+                                                        <input type="text" class="form-control" name="guest_address" id="guest_address" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="bertemu">Bertemu</label>
+                                                        <select id="bertemu" name="bertemu" class="form-control" required>
+                                                            <option selected>Choose...</option>
+                                                            <option>Lainnya</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="keperluan">Keperluan</label>
+                                                        <textarea class="form-control" id="keperluan" name="keperluan" rows="1"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="guest_phone_number">Nomor Handphone</label>
-                                                <input type="text" class="form-control" name="guest_phone_number" id="guest_phone_number" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="visit_date">Tanggal</label>
-                                                <input type="date" class="form-control" name="visit_date" id="visit_date" value="<?= Date("Y-m-d"); ?>" readonly required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="visit_time">Waktu</label>
-                                                <input type="time" class="form-control" name="visit_time" id="visit_time" value="<?= Date("H:i"); ?>" readonly required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="guest_agency">Asal Instansi</label>
-                                                <input type="text" class="form-control" name="guest_agency" id="guest_agency" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="guest_address">Alamat</label>
-                                                <input type="text" class="form-control" name="guest_address" id="guest_address" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="bertemu">Bertemu</label>
-                                                <select id="bertemu" name="bertemu" class="form-control" required>
-                                                    <option selected>Choose...</option>
-                                                    <option>Lainnya</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="keperluan">Keperluan</label>
-                                                <textarea class="form-control" id="keperluan" name="keperluan" rows="1"></textarea>
+                                            <div class="form-group col-md-4">
+                                                <!-- For GUEST PHOTO -->
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-accent">Tambahkan Tamu</button>
