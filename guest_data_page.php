@@ -10,7 +10,7 @@
                                         <i class="fas fa-search"></i>
                                     </div>
                                 </div>
-                                <input class="navbar-search form-control" type="text" placeholder="Cari berdasarkan Nama Tamu, Tanggal, Asal Instansi, Bertemu..." aria-label="Search">
+                                <input class="navbar-search form-control" autofocus type="text" placeholder="Cari berdasarkan Nama Tamu, Tanggal, Asal Instansi, Bertemu..." aria-label="Search">
                             </div>
                         </form>
                         <nav class="nav">
