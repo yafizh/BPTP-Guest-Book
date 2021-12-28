@@ -29,12 +29,12 @@ INSERT INTO `guest_table`(
     guest_phone_number,
     guest_visit_timestampt,
     guest_address,
-    guest_keperluan,
-    guest_bertemu
+    guest_necessity,
+    guest_meet_with
 ) VALUES 
     ("Diki Suti Prasetya", "089712321284", CURRENT_TIMESTAMP(), 'Martapura', "Magang", 1),
     ("Andry", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 DAY, 'Martapura', "Berkunjung", 1),
     ("Nurcholis", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Astambul', "Magang", 1),
     ("Daus", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Martapura', "Berkunjung", 1),
     ("Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "Berkunjung", 1),
-    ("Nursahid Arya Suyudi", "089712321284", CURRENT_TIMESTAMP() INTERVAL 1 YEAR, 'Binaung', "Berkunjung", 1);
+    ("Nursahid Arya Suyudi", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 YEAR, 'Binaung', "Berkunjung", 1);

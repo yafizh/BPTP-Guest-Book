@@ -2,35 +2,6 @@
     <div class="main-navbar sticky-top bg-white">
         <!-- Main Navbar -->
         <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-            <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
-                <div class="input-group input-group-seamless ml-3">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-search"></i>
-                        </div>
-                    </div>
-                    <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">
-                </div>
-            </form>
-            <ul class="navbar-nav border-left flex-row ">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle mr-2" src="images/avatars/0.jpg" alt="User Avatar">
-                        <span class="d-none d-md-inline-block">Sierra Brooks</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-small">
-                        <a class="dropdown-item" href="user-profile-lite.html">
-                            <i class="material-icons">&#xE7FD;</i> Profile</a>
-                        <a class="dropdown-item" href="components-blog-posts.html">
-                            <i class="material-icons">vertical_split</i> Blog Posts</a>
-                        <a class="dropdown-item" href="add-new-post.html">
-                            <i class="material-icons">note_add</i> Add New Post</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">
-                            <i class="material-icons text-danger">&#xE879;</i> Logout </a>
-                    </div>
-                </li>
-            </ul>
             <nav class="nav">
                 <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
                     <i class="material-icons">&#xE5D2;</i>
@@ -95,20 +66,34 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="bertemu">Bertemu</label>
-                                                        <select id="bertemu" name="bertemu" class="form-control" required>
+                                                        <label for="guest_meet_with">Bertemu</label>
+                                                        <select id="guest_meet_with" name="guest_meet_with" class="form-control" required>
                                                             <option selected>Choose...</option>
                                                             <option>Lainnya</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="keperluan">Keperluan</label>
-                                                        <textarea class="form-control" id="keperluan" name="keperluan" rows="1"></textarea>
+                                                        <label for="guest_necessity">Keperluan</label>
+                                                        <textarea class="form-control" id="guest_necessity" name="guest_necessity" rows="1"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <!-- For GUEST PHOTO -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 text-center">
+                                                        <h6>Ambil Gambar</h6>
+                                                        <video class="bg-danger" autoplay></video>
+                                                        <img id="taroh" src="" class="d-none" style="width:270px; height: 270px;">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row pl-5 pr-5">
+                                                    <div class="d-flex gap-1 w-100">
+                                                        <button id="reset" type="button" style="flex:1;" class="btn btn-accent mr-1" disabled>Reset</button>
+                                                        <button id="ambil" type="button" style="flex:1;" class="btn btn-accent ml-1">Ambil Gambar</button>
+                                                    </div>
+                                                </div>
+                                                <input id="input_file" type="file" accept="image/*;capture=camera" hidden>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-accent">Tambahkan Tamu</button>
@@ -123,6 +108,76 @@
     </div>
 </main>
 <script>
+    function update(stream) {
+        document.querySelector('video').src = stream.url;
+    }
+
+    function hasGetUserMedia() {
+        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    }
+    if (hasGetUserMedia()) {
+        // Good to go!
+    } else {
+        alert("getUserMedia() is not supported by your browser");
+    }
+</script>
+<script>
+    const constraints = {
+        video: {
+            width: {
+                exact: 270
+            },
+            height: {
+                exact: 270
+            }
+        },
+    };
+
+    const video = document.querySelector("video");
+
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        video.srcObject = stream;
+    });
+    const screenshotButton = document.querySelector("#ambil");
+    const img = document.querySelector("#taroh");
+
+    const canvas = document.createElement("canvas");
+
+    screenshotButton.onclick = video.onclick = function() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        // Other browsers will fall back to image/png
+        img.src = canvas.toDataURL("image/webp");
+
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL("image/webp").replace("image/webp", "image/octet-stream")
+        a.download = 'asd.webp';
+        document.body.appendChild(a);
+        a.click();
+
+
+        video.classList.toggle('d-none');
+        img.classList.toggle('d-none');
+        $('#reset').prop('disabled', function(i, v) {
+            return !v;
+        });
+    };
+
+    $('#reset').on('click', _ => {
+        video.classList.toggle('d-none');
+        img.classList.toggle('d-none');
+        $('#reset').prop('disabled', function(i, v) {
+            return !v;
+        });
+    })
+
+    function handleSuccess(stream) {
+        screenshotButton.disabled = false;
+        video.srcObject = stream;
+    }
+</script>
+<script>
     $('form').on('submit', function(e) {
         if (
             $('#guest_name').val().trim() ||
@@ -131,8 +186,8 @@
             $('#visit_time').val().trim() ||
             $('#guest_agency').val().trim() ||
             $('#guest_address').val().trim() ||
-            $('#bertemu').val().trim() ||
-            $('#keperluan').val().trim()
+            $('#guest_meet_with').val().trim() ||
+            $('#guest_necessity').val().trim()
         ) {
             e.preventDefault();
             $(this).addClass('was-validated')
