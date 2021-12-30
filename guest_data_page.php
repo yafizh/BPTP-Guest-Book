@@ -85,43 +85,45 @@
                 </button>
             </div> -->
             <div class="modal-body">
-                <img src="" alt="">
-                <div class="form-row mt-2">
+                <div class="form-row mb-2 justify-content-center">
+                    <img src="" alt="" style="width: 70%;">
+                </div>
+                <div class="form-row mb-2">
                     <div class="col-md-5">Nama Tamu</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_name"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Nomor Handphone</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_phone_number"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Tanggal</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="visit_date"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Waltu</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="visit_time"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Asal Instansi</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_agency"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Alamat</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_address"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row mb-2">
                     <div class="col-md-5">Bertemu</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_meet_with"></div>
                 </div>
-                <div class="form-row mt-2">
+                <div class="form-row">
                     <div class="col-md-5">Keperluan</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="guest_necessity"></div>
@@ -136,6 +138,7 @@
 
 <script>
     const guestDetail = guest => {
+        $("#exampleModal img").attr("src", guest.guest_picture);
         $("#exampleModal #guest_name").text(guest.guest_name);
         $("#exampleModal #guest_phone_number").text(guest.guest_phone_number);
         $("#exampleModal #visit_date").text(guest.guest_visit_date);
