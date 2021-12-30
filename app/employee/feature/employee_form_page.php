@@ -64,7 +64,7 @@
                         <li class="list-group-item p-3">
                             <div class="row">
                                 <div class="col">
-                                    <form class="needs-validation" novalidate action="postEmployee.php" method="POST">
+                                    <form class="needs-validation" novalidate action="employee/handler/postEmployee.php" method="POST">
                                         <div class="form-row">
                                             <div id="form-section" class="form-group col-md-12">
                                                 <div class="form-row">

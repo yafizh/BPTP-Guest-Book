@@ -73,7 +73,7 @@
 <script>
     const getGuestDate = (keyword = '') => {
         $.ajax({
-            url: `getEmployee.php?keyword=${keyword}`,
+            url: `employee/handler/getEmployee.php?keyword=${keyword}`,
             method: 'GET',
             dataType: 'JSON',
             success: function(response) {

@@ -152,7 +152,7 @@
 
     const getGuestDate = (keyword = '') => {
         $.ajax({
-            url: `getGuest.php?keyword=${keyword}`,
+            url: `guest/handler/getGuest.php?keyword=${keyword}`,
             method: 'GET',
             dataType: 'JSON',
             success: function(response) {

@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "connection.php";
+require_once "../../config/CONFIG.php";
+require_once "../../database/connection.php";
 
 $guest_meet_with        = $conn->real_escape_string($_POST['guest_meet_with']);
 $guest_name             = $conn->real_escape_string($_POST['guest_name']);
@@ -40,5 +41,5 @@ if ($conn->query($sql) === TRUE) {
     $_SESSION['isSuccess'] = false;
     $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
 }
-header('Location: index.php?page=guest_book');
+header('Location: ' . BASE_URL . 'app/index.php?page=guest_book');
 die();

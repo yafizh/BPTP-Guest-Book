@@ -1,4 +1,4 @@
-<?php require_once "connection.php";
+<?php require_once "../../database/connection.php";
 $keyword = $_GET['keyword'];
 $sql = "
     SELECT 
