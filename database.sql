@@ -36,9 +36,11 @@ CREATE VIEW guest_view AS SELECT
     LEFT JOIN employees_table ON guest_table.guest_meet_with=employees_table.employee_id;
 
 INSERT INTO `employees_table`(
-    employee_name
+    employee_name,
+    edited_at,
+    created_at 
 ) VALUES 
-    ('Eko');
+    ('Eko', CURRENT_DATE(), CURRENT_DATE());
 
 INSERT INTO `guest_table`(
     guest_meet_with,

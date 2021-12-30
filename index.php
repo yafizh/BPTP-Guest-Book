@@ -66,6 +66,18 @@
                 <span>Data Tamu</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_data') ? "active" : "") : "" ?>" href="?page=employee_data">
+                <i class="material-icons">note_add</i>
+                <span>Data Karyawan</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_form') ? "active" : "") : "" ?>" href="?page=employee_form">
+                <i class="material-icons">note_add</i>
+                <span>Tambah Data Karyawan</span>
+              </a>
+            </li>
           </ul>
         </div>
       </aside>
@@ -78,6 +90,12 @@
             break;
           case "guest_data":
             include_once "guest_data_page.php";
+            break;
+          case "employee_data":
+            include_once "employee_data_page.php";
+            break;
+          case "employee_form":
+            include_once "employee_form_page.php";
             break;
           default:
             include_once "page_not_found.html";
