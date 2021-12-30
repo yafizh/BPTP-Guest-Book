@@ -4,16 +4,18 @@ USE `guest_book_bptp`;
 CREATE TABLE `employees_table`(
     employee_id INT NOT NULL AUTO_INCREMENT,
     employee_name VARCHAR(255),
+    created_at DATE NOT NULL,
+    edited_at DATE NOT NULL,
     PRIMARY KEY(employee_id)
 );
 
 CREATE TABLE `guest_table`(
     guest_id INT NOT NULL AUTO_INCREMENT,
-    guest_meet_with INT NOT NULL,
+    guest_meet_with INT NULL,
     guest_name VARCHAR(255) NOT NULL,
-    guest_phone_number VARCHAR(15) NOT NULL,
+    guest_phone_number VARCHAR(15) NULL,
     guest_visit_timestamp TIMESTAMP NOT NULL,
-    guest_address TEXT NOT NULL,
+    guest_address TEXT NULL,
     guest_agency VARCHAR(255) NOT NULL,
     guest_necessity TEXT NOT NULL,
     guest_picture TEXT NULL,
@@ -37,8 +39,8 @@ CREATE VIEW guest_view AS SELECT
 
 INSERT INTO `employees_table`(
     employee_name,
-    edited_at,
-    created_at 
+    created_at, 
+    edited_at 
 ) VALUES 
     ('Eko', CURRENT_DATE(), CURRENT_DATE());
 

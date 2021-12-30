@@ -37,11 +37,11 @@
         <?php endif; ?>
         <?php session_destroy(); ?>
         <script>
-            setTimeout(function() {
-                $('.alert').hide(3000, function() {
-                    $(this).remove();
-                })
-            }, 3000);
+            // setTimeout(function() {
+            //     $('.alert').hide(3000, function() {
+            //         $(this).remove();
+            //     })
+            // }, 3000);
         </script>
     <?php endif; ?>
     <div class="main-content-container container-fluid px-4">
@@ -79,11 +79,11 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_name">Nama Tamu</label>
                                                         <input type="text" class="form-control" name="guest_name" id="guest_name" required>
-                                                        <div class="invalid-feedback">Harap isi kolom nama tamu.</div>
+                                                        <div class="invalid-feedback">Harap isi kolom Nama Tamu.</div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_phone_number">Nomor Handphone</label>
-                                                        <input type="text" class="form-control" name="guest_phone_number" id="guest_phone_number" required>
+                                                        <input type="text" class="form-control" name="guest_phone_number" id="guest_phone_number">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -100,23 +100,30 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_agency">Asal Instansi</label>
                                                         <input type="text" class="form-control" name="guest_agency" id="guest_agency" required>
+                                                        <div class="invalid-feedback">Harap isi kolom Asal Instansi.</div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_address">Alamat</label>
-                                                        <input type="text" class="form-control" name="guest_address" id="guest_address" required>
+                                                        <input type="text" class="form-control" name="guest_address" id="guest_address">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
+                                                        <?php require_once 'database/connection.php'; ?>
+                                                        <?php $employees = $conn->query("SELECT * FROM employees_table"); ?>
                                                         <label for="guest_meet_with">Bertemu</label>
                                                         <select id="guest_meet_with" name="guest_meet_with" class="form-control">
-                                                            <option selected>Choose...</option>
-                                                            <option value="1">Lainnya</option>
+                                                            <option selected disabled>Pilih Karyawan...</option>
+                                                            <?php while ($employee = $employees->fetch_assoc()) : ?>
+                                                                <option value="<?= $employee['employee_id']; ?>"><?= $employee['employee_name']; ?></option>
+                                                            <?php endwhile; ?>
+                                                            <option value="">Lainnya</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_necessity">Keperluan</label>
                                                         <textarea class="form-control" id="guest_necessity" name="guest_necessity" rows="1" required></textarea>
+                                                        <div class="invalid-feedback">Harap isi kolom Keperluan.</div>
                                                     </div>
                                                 </div>
                                             </div>

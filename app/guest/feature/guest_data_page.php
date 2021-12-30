@@ -165,7 +165,7 @@
                             <td class="text-left">${value.guest_name}</td>
                             <td>${value.guest_visit_date}</td>
                             <td>${value.guest_agency}</td>
-                            <td>${value.guest_meet_with}</td>
+                            <td>${value.guest_meet_with ? value.guest_meet_with : 'Pegawai Lainnya'}</td>
                         `
                         );
                         tr.on('click', function() {
