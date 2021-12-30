@@ -213,8 +213,10 @@
     }
 
     const cameraOff = _ => {
+        imageButton();
         $('#reset-screenshot-button').attr('disabled', "");
         $('#screenshot-button').attr('disabled', "");
+        $('#guest_picture').val('');
     }
 </script>
 <script>

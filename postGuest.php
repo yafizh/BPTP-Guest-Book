@@ -7,6 +7,7 @@ $guest_name             = $conn->real_escape_string($_POST['guest_name']);
 $guest_phone_number     = $conn->real_escape_string($_POST['guest_phone_number']);
 $guest_visit_timestamp  = $conn->real_escape_string($_POST['visit_date'] . ' ' .$_POST['visit_time']);
 $guest_address          = $conn->real_escape_string($_POST['guest_address']);
+$guest_agency           = $conn->real_escape_string($_POST['guest_agency']);
 $guest_necessity        = $conn->real_escape_string($_POST['guest_necessity']);
 $guest_picture          = !empty($_POST['guest_picture']) ? ("'".$conn->real_escape_string($_POST['guest_picture'])."'") : "NULL";
 
@@ -17,6 +18,7 @@ $sql = "
         guest_phone_number,
         guest_visit_timestamp,
         guest_address,
+        guest_agency,
         guest_necessity,
         guest_picture
     ) VALUES (
@@ -25,6 +27,7 @@ $sql = "
         '$guest_phone_number',
         '$guest_visit_timestamp',
         '$guest_address',
+        '$guest_agency',
         '$guest_necessity',
         $guest_picture
     )
