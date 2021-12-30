@@ -10,6 +10,40 @@
         </nav>
     </div>
     <!-- / .main-navbar -->
+    <style>
+        /* For animation */
+        /* https://stackoverflow.com/questions/42979772/bootstrap-4-animate-column-width-change */
+        .row [class*='col-'] {
+            transition: flex 0.5s ease-in-out, max-width .5s ease-in-out;
+        }
+    </style>
+    <?php if (isset($_SESSION['isSuccess'])) : ?>
+        <?php if ($_SESSION['isSuccess']) : ?>
+            <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <i class="fa fa-check mx-2"></i>
+                <strong>Berhasil!</strong> Tamu berhasil ditambahkan!
+            </div>
+        <?php else : ?>
+            <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <i class="fa fa-info mx-2"></i>
+                <strong>Gagal</strong> <?= $_SESSION['message']; ?>
+            </div>
+        <?php endif; ?>
+        <?php session_destroy(); ?>
+        <script>
+            setTimeout(function() {
+                $('.alert').hide(3000, function() {
+                    $(this).remove();
+                })
+            }, 3000);
+        </script>
+    <?php endif; ?>
     <div class="main-content-container container-fluid px-4">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
@@ -23,16 +57,24 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-small mb-4">
-                    <div class="card-header border-bottom">
-                        <h6 class="m-0">Identitas Pengunjung</h6>
+                    <div class="card-header border-bottom d-flex">
+                        <h6 class="m-0 align-self-center" style="flex: 1;">Identitas Pengunjung</h6>
+                        <div class="btn-group btn-group-toggle mb-0" data-toggle="buttons">
+                            <label class="btn btn-white">
+                                <input type="radio" name="camera" id="camera-off" autocomplete="off" checked>Kamera Off
+                            </label>
+                            <label class="btn btn-white">
+                                <input type="radio" name="camera" id="camera-on" autocomplete="off">Kamera On
+                            </label>
+                        </div>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
                             <div class="row">
                                 <div class="col">
-                                    <form class="needs-validation" novalidate action="" method="POST">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-8">
+                                    <form class="needs-validation" novalidate action="postGuest.php" method="POST">
+                                        <div class="form-row flex-nowrap" style="overflow: hidden;">
+                                            <div id="form-section" class="form-group col-md-12">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_name">Nama Tamu</label>
@@ -67,33 +109,32 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_meet_with">Bertemu</label>
-                                                        <select id="guest_meet_with" name="guest_meet_with" class="form-control" required>
+                                                        <select id="guest_meet_with" name="guest_meet_with" class="form-control">
                                                             <option selected>Choose...</option>
-                                                            <option>Lainnya</option>
+                                                            <option value="1">Lainnya</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_necessity">Keperluan</label>
-                                                        <textarea class="form-control" id="guest_necessity" name="guest_necessity" rows="1"></textarea>
+                                                        <textarea class="form-control" id="guest_necessity" name="guest_necessity" rows="1" required></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <!-- For GUEST PHOTO -->
+                                            <div id="camera-section" class="form-group col-md-4">
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-12 text-center">
+                                                    <div class="form-group col-md-12 text-center" style="width:270px; height: 270px; overflow: hidden;  ">
                                                         <h6>Ambil Gambar</h6>
-                                                        <video class="bg-danger" autoplay></video>
-                                                        <img id="taroh" src="" class="d-none" style="width:270px; height: 270px;">
+                                                        <video autoplay style="width:270px; height: 270px;"></video>
+                                                        <img id="guest_picture_container" src="" class="d-none" style="width:270px; height: 270px;">
                                                     </div>
                                                 </div>
                                                 <div class="form-row pl-5 pr-5">
                                                     <div class="d-flex gap-1 w-100">
-                                                        <button id="reset" type="button" style="flex:1;" class="btn btn-accent mr-1" disabled>Reset</button>
-                                                        <button id="ambil" type="button" style="flex:1;" class="btn btn-accent ml-1">Ambil Gambar</button>
+                                                        <button id="reset-screenshot-button" type="button" style="flex:1;" class="btn btn-accent mr-1" disabled>Reset</button>
+                                                        <button id="screenshot-button" type="button" style="flex:1;" class="btn btn-accent ml-1">Ambil Gambar</button>
                                                     </div>
                                                 </div>
-                                                <input id="input_file" type="file" accept="image/*;capture=camera" hidden>
+                                                <input id="guest_picture" name="guest_picture" type="text" hidden>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-accent">Tambahkan Tamu</button>
@@ -108,89 +149,113 @@
     </div>
 </main>
 <script>
-    function update(stream) {
-        document.querySelector('video').src = stream.url;
-    }
-
-    function hasGetUserMedia() {
+    const hasGetUserMedia = _ => {
         return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
     }
-    if (hasGetUserMedia()) {
-        // Good to go!
-    } else {
-        alert("getUserMedia() is not supported by your browser");
+
+    const imageButton = _ => {
+        $('#reset-screenshot-button').prop('disabled', function(i, v) {
+            return !v;
+        });
+        $('#screenshot-button').prop('disabled', function(i, v) {
+            return !v;
+        });
+    }
+
+    const cameraOn = _ => {
+        $('#screenshot-button').removeAttr('disabled', "");
+        if (hasGetUserMedia()) {
+            const constraints = {
+                video: true,
+                video: {
+                    width: {
+                        exact: 500
+                    },
+                    height: {
+                        exact: 500
+                    }
+                },
+            };
+
+            const video = document.querySelector("video");
+
+            navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+                video.srcObject = stream;
+            });
+
+            const screenshotButton = document.querySelector("#screenshot-button");
+            const img = document.querySelector("#guest_picture_container");
+
+            const canvas = document.createElement("canvas");
+
+            screenshotButton.onclick = video.onclick = function() {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext("2d").drawImage(video, 0, 0);
+                // Other browsers will fall back to image/png
+                img.src = canvas.toDataURL("image/webp");
+
+                $('#guest_picture').val(canvas.toDataURL("image/webp"));
+
+                video.classList.toggle('d-none');
+                img.classList.toggle('d-none');
+                imageButton();
+            };
+
+            $('#reset-screenshot-button').on('click', _ => {
+                video.classList.toggle('d-none');
+                img.classList.toggle('d-none');
+                imageButton();
+            });
+        } else {
+            alert("getUserMedia() is not supported by your browser");
+        }
+    }
+
+    const cameraOff = _ => {
+        $('#reset-screenshot-button').attr('disabled', "");
+        $('#screenshot-button').attr('disabled', "");
     }
 </script>
 <script>
-    const constraints = {
-        video: {
-            width: {
-                exact: 270
-            },
-            height: {
-                exact: 270
-            }
-        },
-    };
-
-    const video = document.querySelector("video");
-
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-        video.srcObject = stream;
-    });
-    const screenshotButton = document.querySelector("#ambil");
-    const img = document.querySelector("#taroh");
-
-    const canvas = document.createElement("canvas");
-
-    screenshotButton.onclick = video.onclick = function() {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext("2d").drawImage(video, 0, 0);
-        // Other browsers will fall back to image/png
-        img.src = canvas.toDataURL("image/webp");
-
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL("image/webp").replace("image/webp", "image/octet-stream")
-        a.download = 'asd.webp';
-        document.body.appendChild(a);
-        a.click();
-
-
-        video.classList.toggle('d-none');
-        img.classList.toggle('d-none');
-        $('#reset').prop('disabled', function(i, v) {
-            return !v;
-        });
-    };
-
-    $('#reset').on('click', _ => {
-        video.classList.toggle('d-none');
-        img.classList.toggle('d-none');
-        $('#reset').prop('disabled', function(i, v) {
-            return !v;
-        });
-    })
-
-    function handleSuccess(stream) {
-        screenshotButton.disabled = false;
-        video.srcObject = stream;
+    if (localStorage.getItem('camera') === "on") {
+        cameraOn();
+        $('#form-section').addClass('col-md-8');
+        $('#form-section').removeClass('col-md-12');
+        $("#camera-on").parent().addClass('active')
+    } else {
+        cameraOff();
+        $("#camera-off").parent().addClass('active')
     }
+
+    $('input[type=radio][name=camera]').on('change', function() {
+        if ($(this).prop("checked", true).attr('id') === 'camera-on') {
+            cameraOn();
+            $('#form-section').addClass('col-md-8');
+            $('#form-section').removeClass('col-md-12');
+            localStorage.setItem('camera', 'on');
+        } else if ($(this).prop("checked", true).attr('id') === 'camera-off') {
+            cameraOff();
+            $('#form-section').removeClass('col-md-8');
+            $('#form-section').addClass('col-md-12');
+            localStorage.setItem('camera', 'off');
+        }
+    });
 </script>
 <script>
     $('form').on('submit', function(e) {
-        if (
-            $('#guest_name').val().trim() ||
-            $('#guest_phone_number').val().trim() ||
-            $('#visit_date').val().trim() ||
-            $('#visit_time').val().trim() ||
-            $('#guest_agency').val().trim() ||
-            $('#guest_address').val().trim() ||
-            $('#guest_meet_with').val().trim() ||
-            $('#guest_necessity').val().trim()
-        ) {
+        if (!(
+                $('#guest_name').val().trim() &&
+                $('#guest_phone_number').val().trim() &&
+                $('#visit_date').val().trim() &&
+                $('#visit_time').val().trim() &&
+                $('#guest_agency').val().trim() &&
+                $('#guest_address').val().trim() &&
+                $('#guest_meet_with').prop('selectedIndex') > 0 &&
+                $('#guest_necessity').val().trim()
+            )) {
             e.preventDefault();
             $(this).addClass('was-validated')
         }
-    })
+    });
 </script>
