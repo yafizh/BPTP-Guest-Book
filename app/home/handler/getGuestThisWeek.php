@@ -33,7 +33,7 @@ if ($result = $conn->query($sql)) {
         if (!$available) {
             array_unshift($guest_this_week['guest_this_week'], [
                 'guest_visit_day' => (int)$d->format('d'),
-                'guest_visit_date' => (int)$d->format('Y-m-d'),
+                'guest_visit_date' => $d->format('Y-m-d'),
                 'guest_visit_date_count' => 0
             ]);
         }
