@@ -72,7 +72,7 @@
                                 <h6 class="stats-small__value count my-3">8,147</h6>
                             </div>
                             <div class="stats-small__data">
-                                <span class="stats-small__percentage">3.8%</span>
+                                <span class="stats-small__percentage"></span>
                             </div>
                         </div>
                         <canvas height="120" class="blog-overview-stats-small-3"></canvas>
