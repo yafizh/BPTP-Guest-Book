@@ -31,6 +31,22 @@
         <!-- End Page Header -->
         <!-- Small Stats Blocks -->
         <div class="row">
+            <div class="col-lg col-md-12 col-sm-12 mb-4" id="today">
+                <div class="stats-small stats-small--1 card card-small">
+                    <div class="card-body p-0 d-flex">
+                        <div class="d-flex flex-column m-auto">
+                            <div class="stats-small__data text-center">
+                                <span class="stats-small__label text-uppercase">Hari ini</span>
+                                <h6 class="stats-small__value count my-3"></h6>
+                            </div>
+                            <div class="stats-small__data">
+                                <span class="stats-small__percentage"></span>
+                            </div>
+                        </div>
+                        <canvas height="120" class="blog-overview-stats-small-3"></canvas>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg col-md-6 col-sm-6 mb-4" id="this-week">
                 <div class="stats-small stats-small--1 card card-small">
                     <div class="card-body p-0 d-flex">
@@ -60,22 +76,6 @@
                             </div>
                         </div>
                         <canvas height="120" class="blog-overview-stats-small-2"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg col-md-12 col-sm-12 mb-4" id="this-year">
-                <div class="stats-small stats-small--1 card card-small">
-                    <div class="card-body p-0 d-flex">
-                        <div class="d-flex flex-column m-auto">
-                            <div class="stats-small__data text-center">
-                                <span class="stats-small__label text-uppercase">Tahun ini</span>
-                                <h6 class="stats-small__value count my-3">8,147</h6>
-                            </div>
-                            <div class="stats-small__data">
-                                <span class="stats-small__percentage"></span>
-                            </div>
-                        </div>
-                        <canvas height="120" class="blog-overview-stats-small-3"></canvas>
                     </div>
                 </div>
             </div>
@@ -150,10 +150,27 @@
         async: false
     });
 
+
+
+
+    let guestToday;
+    let guestYesterday;
+    $.getJSON('home/handler/getGuestToday.php', function(response) {
+        if (response.isSuccess) {
+            guestToday = response.data;
+        }
+    }).fail(function(error) {
+        console.log(error);
+    });
+
+    $('#today .count').text(guestToday['guest_today_count']);
+
+
     let guestThisWeek;
     let guestLastWeek;
     $.getJSON('home/handler/getGuestThisWeek.php', function(response) {
         if (response.isSuccess) {
+            console.log(response.data);
             guestThisWeek = response.data;
         }
     }).fail(function(error) {
@@ -162,6 +179,7 @@
 
     $.getJSON('home/handler/getGuestLastWeek.php', function(response) {
         if (response.isSuccess) {
+            console.log(response.data);
             guestLastWeek = response.data;
         }
     }).fail(function(error) {
@@ -172,6 +190,27 @@
     $('#this-week .stats-small__percentage').text(((guestThisWeek['guest_this_week_count'] - guestLastWeek['guest_last_week_count']) / guestLastWeek['guest_last_week_count']) * 100 + "%");
     guestThisWeek['guest_this_week_count'] > guestLastWeek['guest_last_week_count'] ? $('#this-week .stats-small__percentage').addClass("stats-small__percentage--increase") : $('#this-week .stats-small__percentage').addClass("stats-small__percentage--decrease");
 
+    var chartOptions = boSmallStatsOptions(Math.max.apply(Math, guestThisWeek['guest_this_week'].map(value => parseInt(value.guest_visit_date_count))) + 1);
+    var ctx = document.getElementsByClassName('blog-overview-stats-small-1');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7"],
+            datasets: [{
+                label: 'This Week',
+                fill: 'start',
+                data: guestThisWeek['guest_this_week'].map(value => parseInt(value.guest_visit_date_count)),
+                backgroundColor: 'rgba(0, 184, 216, 0.1)',
+                borderColor: 'rgb(0, 184, 216)',
+                borderWidth: 1.5,
+            }]
+        },
+        options: chartOptions
+    });
+
+
+
+
 
 
 
@@ -179,6 +218,7 @@
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
         if (response.isSuccess) {
+            console.log(response.data);
             guestThisMonth = response.data;
         }
     }).fail(function(error) {
@@ -187,6 +227,7 @@
 
     $.getJSON('home/handler/getGuestLastMonth.php', function(response) {
         if (response.isSuccess) {
+            console.log(response.data);
             guestLastMonth = response.data
         }
     }).fail(function(error) {
@@ -239,24 +280,6 @@
             },
         };
     }
-
-    var chartOptions = boSmallStatsOptions(Math.max.apply(Math, guestThisWeek['guest_this_week'].map(value => parseInt(value.guest_visit_date_count))) + 1);
-    var ctx = document.getElementsByClassName('blog-overview-stats-small-1');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7"],
-            datasets: [{
-                label: 'This Week',
-                fill: 'start',
-                data: guestThisWeek['guest_this_week'].map(value => parseInt(value.guest_visit_date_count)),
-                backgroundColor: 'rgba(0, 184, 216, 0.1)',
-                borderColor: 'rgb(0, 184, 216)',
-                borderWidth: 1.5,
-            }]
-        },
-        options: chartOptions
-    });
 
     var chartOptions = boSmallStatsOptions(Math.max.apply(Math, guestThisMonth['guest_this_month'].map(value => parseInt(value.guest_visit_date_count))) + 1);
     var ctx = document.getElementsByClassName('blog-overview-stats-small-2');
