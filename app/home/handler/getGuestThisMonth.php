@@ -7,7 +7,7 @@ $sql = "
     FROM 
         guest_table 
     WHERE 
-        DATE(guest_visit_timestamp) > CURRENT_DATE() - INTERVAL 1 MONTH 
+        MONTH(guest_visit_timestamp) = MONTH(CURRENT_DATE()) 
     GROUP BY DATE(guest_visit_timestamp)
 ";
 
@@ -19,25 +19,23 @@ if ($result = $conn->query($sql)) {
         'guest_this_month_count' => 0
     ];
 
-    $d = new DateTime('d');
     for ($i = 0; $i < (int)Date("t"); $i++) {
         $available = false;
         foreach ($data as $datum) {
-            if ((int)$datum['guest_visit_day'] === (int)$d->format('d')) {
-                array_unshift($guest_this_month['guest_this_month'], $datum);
+            if ((int)$datum['guest_visit_day'] === ($i + 1)) {
+                array_push($guest_this_month['guest_this_month'], $datum);
                 $guest_this_month['guest_this_month_count'] += $datum['guest_visit_date_count'];
                 $available = true;
                 break;
             }
         }
         if (!$available) {
-            array_unshift($guest_this_month['guest_this_month'], [
-                'guest_visit_day' => (int)$d->format('d'),
-                'guest_visit_date' => $d->format('Y-m-d'),
+            array_push($guest_this_month['guest_this_month'], [
+                'guest_visit_day' => ($i + 1),
+                'guest_visit_date' => Date('Y-m-') . ($i + 1),
                 'guest_visit_date_count' => 0
             ]);
         }
-        $d->modify('-1 day');
     }
 
     echo json_encode([

@@ -83,68 +83,21 @@
         <!-- End Small Stats Blocks -->
         <div class="row">
             <!-- Users Stats -->
-            <div class="col-lg-8 col-md-12 col-sm-12 mb-4">
+            <div class="col-12 mb-4">
                 <div class="card card-small">
                     <div class="card-header border-bottom">
-                        <h6 class="m-0">Users</h6>
+                        <h6 class="m-0">Grafik Pengunjung </h6>
                     </div>
                     <div class="card-body pt-0">
-                        <div class="row border-bottom py-2 bg-light">
-                            <div class="col-12 col-sm-6">
-                                <div id="blog-overview-date-range" class="input-daterange input-group input-group-sm my-auto ml-auto mr-auto ml-sm-auto mr-sm-0" style="max-width: 350px;">
-                                    <input type="text" class="input-sm form-control" name="start" placeholder="Start Date" id="blog-overview-date-range-1">
-                                    <input type="text" class="input-sm form-control" name="end" placeholder="End Date" id="blog-overview-date-range-2">
-                                    <span class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="material-icons"></i>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 d-flex mb-2 mb-sm-0">
-                                <button type="button" class="btn btn-sm btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0">View Full Report &rarr;</button>
-                            </div>
-                        </div>
-                        <canvas height="130" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
+                        <canvas height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
                     </div>
                 </div>
             </div>
             <!-- End Users Stats -->
-            <!-- Users By Device Stats -->
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                <div class="card card-small h-100">
-                    <div class="card-header border-bottom">
-                        <h6 class="m-0">Tujuan Pengunjung</h6>
-                    </div>
-                    <div class="card-body d-flex py-0">
-                        <canvas height="220" class="blog-users-by-device m-auto"></canvas>
-                    </div>
-                    <div class="card-footer border-top">
-                        <div class="row">
-                            <div class="col">
-                                <select class="custom-select custom-select-sm" style="max-width: 130px;">
-                                    <option selected>Minggu Lalu</option>
-                                    <option value="1">Hari ini</option>
-                                    <option value="2">Bulan Lalu</option>
-                                    <option value="3">Tahun Lalu</option>
-                                </select>
-                            </div>
-                            <div class="col text-right view-report">
-                                <a href="#">Full report &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Users By Device Stats -->
         </div>
     </div>
 </main>
 <script>
-    //
-    // Small Stats
-    //
-
     // https://stackoverflow.com/questions/13009755/getjson-synchronous
     $.ajaxSetup({
         async: false
@@ -217,6 +170,7 @@
     let guestThisMonth;
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
+        console.log(response);
         if (response.isSuccess) {
             console.log(response.data);
             guestThisMonth = response.data;
@@ -298,4 +252,114 @@
         },
         options: chartOptions
     });
+
+
+
+
+
+    //
+    // Blog Overview Users
+    //
+
+    var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
+
+    // Data
+    var bouData = {
+      // Generate the days labels on the X axis.
+      labels: guestThisMonth['guest_this_month'].map(value => parseInt(value.guest_visit_day)),
+      datasets: [{
+        label: 'Bulan ini',
+        fill: 'start',
+        data: guestThisMonth['guest_this_month'].map(value => parseInt(value.guest_visit_date_count)),
+        backgroundColor: 'rgba(0,123,255,0.1)',
+        borderColor: 'rgba(0,123,255,1)',
+        pointBackgroundColor: '#ffffff',
+        pointHoverBackgroundColor: 'rgb(0,123,255)',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        pointHoverRadius: 3
+      }, {
+        label: 'Bulan lalu',
+        fill: 'start',
+        data: guestLastMonth['guest_last_month'].map(value => parseInt(value.guest_visit_date_count)),
+        backgroundColor: 'rgba(255,65,105,0.1)',
+        borderColor: 'rgba(255,65,105,1)',
+        pointBackgroundColor: '#ffffff',
+        pointHoverBackgroundColor: 'rgba(255,65,105,1)',
+        borderDash: [3, 3],
+        borderWidth: 1,
+        pointRadius: 0,
+        pointHoverRadius: 2,
+        pointBorderColor: 'rgba(255,65,105,1)'
+      }]
+    };
+
+    // Options
+    var bouOptions = {
+      responsive: true,
+      legend: {
+        position: 'top'
+      },
+      elements: {
+        line: {
+          // A higher value makes the line look skewed at this ratio.
+          tension: 0.3
+        },
+        point: {
+          radius: 0
+        }
+      },
+      scales: {
+        xAxes: [{
+          gridLines: false,
+          ticks: {
+            callback: function (tick, index) {
+              // Jump every 7 values on the X axis labels to avoid clutter.
+              return index % 7 !== 0 ? '' : tick;
+            }
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            suggestedMax: 45,
+            callback: function (tick, index, ticks) {
+              if (tick === 0) {
+                return tick;
+              }
+              // Format the amounts using Ks for thousands.
+              return tick > 999 ? (tick/ 1000).toFixed(1) + 'K' : tick;
+            }
+          }
+        }]
+      },
+      // Uncomment the next lines in order to disable the animations.
+      // animation: {
+      //   duration: 0
+      // },
+      hover: {
+        mode: 'nearest',
+        intersect: false
+      },
+      tooltips: {
+        custom: false,
+        mode: 'nearest',
+        intersect: false
+      }
+    };
+
+    // Generate the Analytics Overview chart.
+    window.BlogOverviewUsers = new Chart(bouCtx, {
+      type: 'LineWithLine',
+      data: bouData,
+      options: bouOptions
+    });
+
+    // Hide initially the first and last analytics overview chart points.
+    // They can still be triggered on hover.
+    var aocMeta = BlogOverviewUsers.getDatasetMeta(0);
+    aocMeta.data[0]._model.radius = 0;
+    aocMeta.data[bouData.datasets[0].data.length - 1]._model.radius = 0;
+
+    // Render the chart.
+    window.BlogOverviewUsers.render();
 </script>
