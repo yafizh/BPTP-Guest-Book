@@ -83,21 +83,24 @@
         <!-- End Small Stats Blocks -->
         <div class="row">
             <!-- Users Stats -->
-            <div class="col-7 mb-4">
+            <div class="col-12 mb-4">
                 <div class="card card-small">
                     <div class="card-header border-bottom">
                         <h6 class="m-0">Grafik Pengunjung </h6>
                     </div>
                     <div class="card-body pt-0">
-                        <canvas height="220" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
+                        <canvas height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
                     </div>
                 </div>
             </div>
             <!-- End Users Stats -->
-            <div class="col-lg-5 mb-4">
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
                 <div class="row">
                     <!-- Top Referrals Component -->
-                    <div class="col-lg-7 col-md-12 col-sm-12 mb-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
                         <div class="stats-small stats-small--1 card card-small">
                             <div class="card-header border-bottom">
                                 <h6 class="m-0">Jumlah Pengunjung</h6>
@@ -112,7 +115,7 @@
                             </div>
                             <div class="card-footer border-top">
                                 <div class="row">
-                                    <div class="col-7">
+                                    <div class="col-8">
                                         <div id="blog-overview-date-range" class="input-daterange input-group input-group-sm my-auto ml-auto mr-auto ml-sm-auto mr-sm-0" style="max-width: 350px;">
                                             <input type="text" class="input-sm form-control" name="start" placeholder="Start Date" id="blog-overview-date-range-1">
                                             <input type="text" class="input-sm form-control" name="end" placeholder="End Date" id="blog-overview-date-range-2">
@@ -131,8 +134,10 @@
                         </div>
                     </div>
                     <!-- End Top Referrals Component -->
+                </div>
+                <div class="row">
                     <!-- Top Referrals Component -->
-                    <div class="col-lg-5 col-md-12 col-sm-12 mb-4">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                         <div class="stats-small stats-small--1 card card-small">
                             <div class="card-header border-bottom">
                                 <h6 class="m-0">Jumlah Admin</h6>
@@ -155,62 +160,24 @@
                         </div>
                     </div>
                     <!-- End Top Referrals Component -->
-                </div>
-                <div class="row">
                     <!-- Top Referrals Component -->
-                    <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
-                        <div class="card card-small">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                        <div class="stats-small stats-small--1 card card-small">
                             <div class="card-header border-bottom">
-                                <h6 class="m-0">Jumlah Pengunjung Pegawai</h6>
+                                <h6 class="m-0">Jumlah Pegawai</h6>
                             </div>
-                            <div class="card-body p-0">
-                                <ul class="list-group list-group-small list-group-flush">
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Eko</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Stack Overflow</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">11,201</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Hacker News</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">9,291</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Reddit</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">8,281</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">The Next Web</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">7,128</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Tech Crunch</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">6,218</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">YouTube</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">1,218</span>
-                                    </li>
-                                    <li class="list-group-item d-flex px-3">
-                                        <span class="text-semibold text-fiord-blue">Adobe</span>
-                                        <span class="ml-auto text-right text-semibold text-reagent-gray">827</span>
-                                    </li>
-                                </ul>
+                            <div class="card-body p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="stats-small__label text-uppercase">Pegawai</span>
+                                        <h6 class="stats-small__value count my-3">10</h6>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer border-top">
                                 <div class="row">
-                                    <div class="col">
-                                        <select class="custom-select custom-select-sm">
-                                            <option selected>Minggu Lalu</option>
-                                            <option value="1">Hari ini</option>
-                                            <option value="2">Bulan Lalu</option>
-                                            <option value="3">Tahun Lalu</option>
-                                        </select>
-                                    </div>
-                                    <div class="col text-right view-report">
-                                        <a href="#">Cetak Laporan &rarr;</a>
+                                    <div class="col text-center view-report">
+                                        <a href="#" class="btn btn-white">Cetak Data Pegawai</a>
                                     </div>
                                 </div>
                             </div>
@@ -219,6 +186,70 @@
                     <!-- End Top Referrals Component -->
                 </div>
             </div>
+            <!-- Top Referrals Component -->
+            <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
+                <div class="card card-small">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Jumlah Pengunjung Pegawai</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-small list-group-flush">
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Eko</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Eko</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Stack Overflow</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">11,201</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Hacker News</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">9,291</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Reddit</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">8,281</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">The Next Web</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">7,128</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Tech Crunch</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">6,218</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">YouTube</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">1,218</span>
+                            </li>
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">Adobe</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">827</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer border-top">
+                        <div class="row">
+                            <div class="col">
+                                <select class="custom-select custom-select-sm">
+                                    <option selected>Minggu Lalu</option>
+                                    <option value="1">Hari ini</option>
+                                    <option value="2">Bulan Lalu</option>
+                                    <option value="3">Tahun Lalu</option>
+                                </select>
+                            </div>
+                            <div class="col text-right view-report">
+                                <a href="#">Cetak Laporan &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Top Referrals Component -->
         </div>
     </div>
     <div id="aaa">asd</div>
