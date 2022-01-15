@@ -17,7 +17,7 @@ if ($result = $conn->query($sql)) {
         'guest_today_count' => 0
     ];
     if($result->num_rows > 0){
-        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $data = $result->fetch_assoc();
         $guest_today['guest_today'][] = $data;
         $guest_today['guest_today_count'] += (int)$data['guest_visit_date_count'];
     }
