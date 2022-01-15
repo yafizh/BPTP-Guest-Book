@@ -8,7 +8,7 @@ $created_at     = Date("Y-m-d H:i:s");
 $edited_at      = $created_at;
 
 $sql = "
-    INSERT INTO employees_table(
+    INSERT INTO employee_table(
         employee_name 
     ) VALUES (
         '$employee_name' 

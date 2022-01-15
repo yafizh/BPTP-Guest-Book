@@ -4,7 +4,7 @@ $sql = "
     SELECT 
         * 
     FROM 
-        employees_table 
+        employee_table 
     WHERE 
         employee_name LIKE '%$keyword%' 
     ORDER BY employee_id DESC";
