@@ -3,15 +3,22 @@ session_start();
 require_once "../../config/CONFIG.php";
 require_once "../../database/connection.php";
 
-$employee_name  = $conn->real_escape_string($_POST['employee_name']);
-$created_at     = Date("Y-m-d H:i:s");
-$edited_at      = $created_at;
+$employee_name          = $conn->real_escape_string($_POST['employee_name']);
+$employee_nip           = $conn->real_escape_string($_POST['employee_nip']);
+$employee_sex           = $conn->real_escape_string($_POST['employee_sex']);
+$employee_phone_number  = $conn->real_escape_string($_POST['employee_phone_number']);
 
 $sql = "
     INSERT INTO employee_table(
-        employee_name 
+        employee_name,
+        employee_nip,
+        employee_sex,
+        employee_phone_number 
     ) VALUES (
-        '$employee_name' 
+        '$employee_name',
+        '$employee_nip',
+        '$employee_sex',
+        '$employee_phone_number' 
     )
 ";
 
