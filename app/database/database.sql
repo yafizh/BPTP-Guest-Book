@@ -1,17 +1,25 @@
 CREATE DATABASE `guest_book_bptp`;
 USE `guest_book_bptp`;
 
-CREATE TABLE `employees_table`(
-    employee_id INT NOT NULL AUTO_INCREMENT,
-    employee_name VARCHAR(255),
-    created_at DATE NOT NULL,
-    edited_at DATE NOT NULL,
+CREATE TABLE `position_table`(
+    position_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    position_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (position_id)
+);
+
+CREATE TABLE `employee_table`(
+    employee_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    position_id INT UNSIGNED NOT NULL,
+    employee_name VARCHAR(255) NOT NULL,
+    employee_nip VARCHAR(20) NOT NULL UNIQUE,
+    employee_sex ENUM('MALE','FEMALE') NOT NULL,
+    employee_phone_number VARCHAR(15) UNIQUE,
     PRIMARY KEY(employee_id)
 );
 
 CREATE TABLE `guest_table`(
-    guest_id INT NOT NULL AUTO_INCREMENT,
-    guest_meet_with INT NULL,
+    guest_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    guest_meet_with INT UNSIGNED NULL,
     guest_name VARCHAR(255) NOT NULL,
     guest_phone_number VARCHAR(15) NULL,
     guest_visit_timestamp TIMESTAMP NOT NULL,
@@ -20,12 +28,22 @@ CREATE TABLE `guest_table`(
     guest_necessity TEXT NOT NULL,
     guest_picture TEXT NULL,
     PRIMARY KEY(guest_id),
-    FOREIGN KEY (guest_meet_with) REFERENCES employees_table (employee_id)
+    FOREIGN KEY (guest_meet_with) REFERENCES employee_table (employee_id)
+);
+
+CREATE TABLE `user_table`(
+    user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_name VARCHAR(255) NOT NULL,
+    user_username VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
+    user_status ENUM('ADMIN','OPERATOR') NOT NULL,
+    PRIMARY KEY (user_id) 
 );
 
 CREATE VIEW guest_view AS SELECT 
     guest_table.guest_id,
-    employees_table.employee_name AS guest_meet_with,
+    employee_table.employee_id,
+    employee_table.employee_name AS guest_meet_with,
     guest_table.guest_name,
     guest_table.guest_phone_number,
     DATE(guest_table.guest_visit_timestamp) AS guest_visit_date,
@@ -35,14 +53,23 @@ CREATE VIEW guest_view AS SELECT
     guest_table.guest_necessity,
     guest_table.guest_picture 
     FROM guest_table 
-    LEFT JOIN employees_table ON guest_table.guest_meet_with=employees_table.employee_id;
+    LEFT JOIN employee_table ON guest_table.guest_meet_with=employee_table.employee_id;
 
-INSERT INTO `employees_table`(
-    employee_name,
-    created_at, 
-    edited_at 
+INSERT INTO `position_table`(
+    position_name 
 ) VALUES 
-    ('Eko', CURRENT_DATE(), CURRENT_DATE());
+    ('KEPALA PERPUSTAKAAN'),
+    ('SUPERVISOR SENIO BIDANG LAYANAN');
+
+INSERT INTO `employee_table`(
+    position_id,
+    employee_name,
+    employee_nip,
+    employee_sex,
+    employee_phone_number 
+) VALUES 
+    (1, 'Eko', '198609262015051001', 'MALE', '087866778822'),
+    (2, 'Tya', '198609262015051331', 'FEMALE', '087866776655');
 
 INSERT INTO `guest_table`(
     guest_meet_with,
