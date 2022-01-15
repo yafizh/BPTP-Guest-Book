@@ -116,7 +116,7 @@
                             <div class="card-footer border-top">
                                 <div class="row">
                                     <div class="col-8">
-                                        <div id="blog-overview-date-range" class="input-daterange input-group input-group-sm my-auto ml-auto mr-auto ml-sm-auto mr-sm-0" style="max-width: 350px;">
+                                        <div id="blog-overview-date-range" class="input-daterange input-group input-group-sm my-auto mr-sm-0" style="max-width: 350px;">
                                             <input type="text" class="input-sm form-control" name="start" placeholder="Start Date" id="blog-overview-date-range-1">
                                             <input type="text" class="input-sm form-control" name="end" placeholder="End Date" id="blog-overview-date-range-2">
                                             <span class="input-group-append">
@@ -193,7 +193,7 @@
                         <h6 class="m-0">Jumlah Pengunjung Pegawai</h6>
                     </div>
                     <div class="card-body p-0">
-                        <ul class="list-group list-group-small list-group-flush">
+                        <ul class="list-group list-group-small list-group-flush" id="employee-with-visitor-count-list">
                             <li class="list-group-item d-flex px-3">
                                 <span class="text-semibold text-fiord-blue">Eko</span>
                                 <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
@@ -279,9 +279,8 @@
     let guestToday;
     let guestYesterday;
     $.getJSON('home/handler/getGuestToday.php', function(response) {
-        if (response.isSuccess) {
-            guestToday = response.data;
-        }
+        if (response.isSuccess) guestToday = response.data;
+        else console.log(response)
     }).fail(function(error) {
         console.log(error);
     });
@@ -292,19 +291,15 @@
     let guestThisWeek;
     let guestLastWeek;
     $.getJSON('home/handler/getGuestThisWeek.php', function(response) {
-        if (response.isSuccess) {
-            console.log(response.data);
-            guestThisWeek = response.data;
-        }
+        if (response.isSuccess) guestThisWeek = response.data;
+        else console.log(response);
     }).fail(function(error) {
         console.log(error);
     });
 
     $.getJSON('home/handler/getGuestLastWeek.php', function(response) {
-        if (response.isSuccess) {
-            console.log(response.data);
-            guestLastWeek = response.data;
-        }
+        if (response.isSuccess) guestLastWeek = response.data;
+        else console.log(response);
     }).fail(function(error) {
         console.log(error);
     });
@@ -340,20 +335,15 @@
     let guestThisMonth;
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
-        console.log(response);
-        if (response.isSuccess) {
-            console.log(response.data);
-            guestThisMonth = response.data;
-        }
+        if (response.isSuccess) guestThisMonth = response.data;
+        else console.log(response);
     }).fail(function(error) {
         console.log(error);
     });
 
     $.getJSON('home/handler/getGuestLastMonth.php', function(response) {
-        if (response.isSuccess) {
-            console.log(response.data);
-            guestLastMonth = response.data
-        }
+        if (response.isSuccess) guestLastMonth = response.data;
+        else console.log(response);
     }).fail(function(error) {
         console.log(error);
     });
@@ -532,4 +522,14 @@
 
     // Render the chart.
     window.BlogOverviewUsers.render();
+
+
+    $.getJSON('home/handler/getEmployeeWithVisitorCount.php', function(response) {
+        console.log(response);
+        if (response.isSuccess) {
+            console.log(response.data);
+        }
+    }).fail(function(error) {
+        console.log(error);
+    });
 </script>
