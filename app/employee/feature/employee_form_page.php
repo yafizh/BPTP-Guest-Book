@@ -114,49 +114,22 @@
         </div>
     </div>
 </main>
+<script src="utils/validations.js"></script>
 <script>
-    const phone_number_validation = element => {
-        if (!element.val().trim()) {
-            element.siblings('.invalid-feedback').text('Harap isi kolom Nomor Telepon');
-            return false;
-        } else if ((element.val().trim()).match(/\^+|[a-z]/i)) {
-            element.siblings('.invalid-feedback').text('Kolom Nomor Telepon hanya bisa diisi dengan nomor telepon');
-            return false;
-        } else return true;
-    }
-
-    const name_validation = element => {
-        if (!element.val().trim()) {
-            element.siblings('.invalid-feedback').text('Harap isi kolom Nama Karyawan');
-            return false;
-        } else return true;
-    }
-
-    const nip_validation = element => {
-        if (!element.val().trim()) {
-            element.siblings('.invalid-feedback').text('Harap isi kolom NIP Karyawan');
-            return false;
-        } else if ((element.val().trim()).match(/[a-z]/i)) {
-            element.siblings('.invalid-feedback').text('Kolom NIP Karyawan hanya bisa diisi dengan angka');
-            return false;
-        } else return true;
-    }
-
     const form_validation = _ => {
         let clear = true;
-        if (!name_validation($("input[name=employee_name]"))) clear = false;
+        if (!empty_validation($("input[name=employee_name]"))) clear = false;
         if (!phone_number_validation($('input[name=employee_phone_number]'))) clear = false;
-        if (!nip_validation($('input[name=employee_nip]'))) clear = false;
+        if (!number_validation($('input[name=employee_nip]'))) clear = false;
         return clear;
     }
-
 
     $("input[name=employee_phone_number]").on('input', function() {
         phone_number_validation($(this))
     });
 
     $("input[name=employee_nip]").on('input', function() {
-        nip_validation($(this))
+        number_validation($(this))
     });
 
     $('form').on('submit', function(e) {

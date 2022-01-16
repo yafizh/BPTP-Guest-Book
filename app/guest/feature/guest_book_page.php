@@ -83,7 +83,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_phone_number">Nomor Handphone</label>
-                                                        <input type="text" class="form-control" name="guest_phone_number"  pattern="(\+[0-9]|[0-9])*" autocomplete="off">
+                                                        <input type="text" class="form-control" name="guest_phone_number" pattern="(\+[0-9]|[0-9])*" autocomplete="off">
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
@@ -158,43 +158,20 @@
         </div>
     </div>
 </main>
+<script src="utils/validations.js"></script>
 <script>
-    const empty_validation = (element, field) => {
-        if (!element.val().trim()) {
-            element.siblings('.invalid-feedback').text(`Harap isi kolom ${field}`);
-            return false;
-        } else return true;
-    }
-
-    const select_option_validation = (element, field) => {
-        if (element.prop('selectedIndex') === 0) {
-            element.siblings('.invalid-feedback').text(`Harap pilih ${field}`);
-            return false;
-        } else return true;
-    }
-
-    const phone_number_validation = (element, field) => {
-        if (!element.val().trim()) {
-            element.siblings('.invalid-feedback').text(`Harap isi kolom ${field}`);
-            return false;
-        } else if (!(element.val().trim()).match(/\+[0-9]|[0-9]/i)) {
-            element.siblings('.invalid-feedback').text(`Kolom ${field} hanya bisa diisi dengan nomor telepon`);
-            return false;
-        } else return true;
-    }
+    $("input[name=guest_phone_number]").on('input', function() {
+        phone_number_validation($(this), 'Nomor Telepon');
+    });
 
     const form_validation = _ => {
         let clear = true;
         if (!empty_validation($("input[name=guest_name]"), "Nama Tamu")) clear = false;
         if (!empty_validation($("input[name=guest_agency]"), "Asal Instansi")) clear = false;
         if (!empty_validation($("input[name=guest_necessity]"), "Keperluan")) clear = false;
-        if (!select_option_validation($("select[name=guest_meet_with]"),'Pegawai yang ingin dikunjungi')) clear = false;
+        if (!select_option_validation($("select[name=guest_meet_with]"), 'Pegawai yang ingin dikunjungi')) clear = false;
         return clear;
     }
-
-    $("input[name=guest_phone_number]").on('input', function() {
-        phone_number_validation($(this), 'Nomor Telepon');
-    });
 
     $('form').on('submit', function(e) {
         if (!form_validation()) {
