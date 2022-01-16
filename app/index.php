@@ -81,15 +81,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_data') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=employee_data">
+              <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_data' || $_GET['page'] == 'employee_form') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=employee_data">
                 <i class="material-icons">note_add</i>
                 <span>Data Karyawan</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_form') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=employee_form">
-                <i class="material-icons">note_add</i>
-                <span>Tambah Data Karyawan</span>
               </a>
             </li>
           </ul>

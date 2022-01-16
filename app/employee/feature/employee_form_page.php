@@ -70,8 +70,35 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
                                                         <label for="employee_name">Nama Karyawan</label>
-                                                        <input type="text" class="form-control" name="employee_name" id="employee_name" required>
-                                                        <div class="invalid-feedback">Harap isi kolom nama karyawan.</div>
+                                                        <input type="text" class="form-control" name="employee_name" autofocus autocomplete="off" required>
+                                                        <div class="invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12" id="employee_name_field">
+                                                        <label for="employee_nip">NIP Karyawan</label>
+                                                        <input type="text" class="form-control" pattern="[0-9]+" name="employee_nip" autocomplete="off" required>
+                                                        <div class="invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="d-block" style="display: block;">Jenis Kelamin</label>
+                                                        <div class="btn-group btn-group-toggle mb-0" data-toggle="buttons">
+                                                            <label class="btn btn-white active">
+                                                                <input type="radio" name="employee_sex" value="MALE" checked>Laki - Laki
+                                                            </label>
+                                                            <label class="btn btn-white">
+                                                                <input type="radio" name="employee_sex" value="FEMALE">Perempuan
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="employee_phone_number">Nomor Telepon</label>
+                                                        <input type="text" class="form-control" pattern="(\+[0-9]|[0-9])*" name="employee_phone_number" autocomplete="off" required>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,10 +115,52 @@
     </div>
 </main>
 <script>
+    const phone_number_validation = element => {
+        if (!element.val().trim()) {
+            element.siblings('.invalid-feedback').text('Harap isi kolom Nomor Telepon');
+            return false;
+        } else if ((element.val().trim()).match(/\^+|[a-z]/i)) {
+            element.siblings('.invalid-feedback').text('Kolom Nomor Telepon hanya bisa diisi dengan nomor telepon');
+            return false;
+        } else return true;
+    }
+
+    const name_validation = element => {
+        if (!element.val().trim()) {
+            element.siblings('.invalid-feedback').text('Harap isi kolom Nama Karyawan');
+            return false;
+        } else return true;
+    }
+
+    const nip_validation = element => {
+        if (!element.val().trim()) {
+            element.siblings('.invalid-feedback').text('Harap isi kolom NIP Karyawan');
+            return false;
+        } else if ((element.val().trim()).match(/[a-z]/i)) {
+            element.siblings('.invalid-feedback').text('Kolom NIP Karyawan hanya bisa diisi dengan angka');
+            return false;
+        } else return true;
+    }
+
+    const form_validation = _ => {
+        let clear = true;
+        if (!name_validation($("input[name=employee_name]"))) clear = false;
+        if (!phone_number_validation($('input[name=employee_phone_number]'))) clear = false;
+        if (!nip_validation($('input[name=employee_nip]'))) clear = false;
+        return clear;
+    }
+
+
+    $("input[name=employee_phone_number]").on('input', function() {
+        phone_number_validation($(this))
+    });
+
+    $("input[name=employee_nip]").on('input', function() {
+        nip_validation($(this))
+    });
+
     $('form').on('submit', function(e) {
-        if (!(
-                $('#employee_name').val().trim()
-            )) {
+        if (!form_validation()) {
             e.preventDefault();
             $(this).addClass('was-validated')
         }
