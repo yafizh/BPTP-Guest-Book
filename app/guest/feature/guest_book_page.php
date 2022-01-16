@@ -78,52 +78,55 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_name">Nama Tamu</label>
-                                                        <input type="text" class="form-control" name="guest_name" id="guest_name" required>
-                                                        <div class="invalid-feedback">Harap isi kolom Nama Tamu.</div>
+                                                        <input type="text" class="form-control" name="guest_name" autocomplete="off" required>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_phone_number">Nomor Handphone</label>
-                                                        <input type="text" class="form-control" name="guest_phone_number" id="guest_phone_number">
+                                                        <input type="text" class="form-control" name="guest_phone_number"  pattern="(\+[0-9]|[0-9])*" autocomplete="off">
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="visit_date">Tanggal</label>
-                                                        <input type="date" class="form-control" name="visit_date" id="visit_date" value="<?= Date("Y-m-d"); ?>" readonly required>
+                                                        <input type="date" class="form-control" name="visit_date" value="<?= Date("Y-m-d"); ?>" readonly required>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="visit_time">Waktu</label>
-                                                        <input type="time" class="form-control" name="visit_time" id="visit_time" value="<?= Date("H:i"); ?>" readonly required>
+                                                        <input type="time" class="form-control" name="visit_time" value="<?= Date("H:i"); ?>" readonly required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_agency">Asal Instansi</label>
-                                                        <input type="text" class="form-control" name="guest_agency" id="guest_agency" required>
-                                                        <div class="invalid-feedback">Harap isi kolom Asal Instansi.</div>
+                                                        <input type="text" class="form-control" name="guest_agency" required>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_address">Alamat</label>
-                                                        <input type="text" class="form-control" name="guest_address" id="guest_address">
+                                                        <input type="text" class="form-control" name="guest_address">
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <?php require_once 'database/connection.php'; ?>
-                                                        <?php $employees = $conn->query("SELECT * FROM employees_table"); ?>
+                                                        <?php $employees = $conn->query("SELECT * FROM employee_table"); ?>
                                                         <label for="guest_meet_with">Bertemu</label>
-                                                        <select id="guest_meet_with" name="guest_meet_with" class="form-control">
-                                                            <option selected disabled>Pilih Karyawan...</option>
+                                                        <select name="guest_meet_with" class="form-control" required>
+                                                            <option value="" selected disabled>Pilih Pegawai...</option>
                                                             <?php while ($employee = $employees->fetch_assoc()) : ?>
                                                                 <option value="<?= $employee['employee_id']; ?>"><?= $employee['employee_name']; ?></option>
                                                             <?php endwhile; ?>
                                                             <option value="">Lainnya</option>
                                                         </select>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_necessity">Keperluan</label>
-                                                        <textarea class="form-control" id="guest_necessity" name="guest_necessity" rows="1" required></textarea>
-                                                        <div class="invalid-feedback">Harap isi kolom Keperluan.</div>
+                                                        <input type="text" class="form-control" name="guest_necessity" required>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,6 +158,51 @@
         </div>
     </div>
 </main>
+<script>
+    const empty_validation = (element, field) => {
+        if (!element.val().trim()) {
+            element.siblings('.invalid-feedback').text(`Harap isi kolom ${field}`);
+            return false;
+        } else return true;
+    }
+
+    const select_option_validation = (element, field) => {
+        if (element.prop('selectedIndex') === 0) {
+            element.siblings('.invalid-feedback').text(`Harap pilih ${field}`);
+            return false;
+        } else return true;
+    }
+
+    const phone_number_validation = (element, field) => {
+        if (!element.val().trim()) {
+            element.siblings('.invalid-feedback').text(`Harap isi kolom ${field}`);
+            return false;
+        } else if (!(element.val().trim()).match(/\+[0-9]|[0-9]/i)) {
+            element.siblings('.invalid-feedback').text(`Kolom ${field} hanya bisa diisi dengan nomor telepon`);
+            return false;
+        } else return true;
+    }
+
+    const form_validation = _ => {
+        let clear = true;
+        if (!empty_validation($("input[name=guest_name]"), "Nama Tamu")) clear = false;
+        if (!empty_validation($("input[name=guest_agency]"), "Asal Instansi")) clear = false;
+        if (!empty_validation($("input[name=guest_necessity]"), "Keperluan")) clear = false;
+        if (!select_option_validation($("select[name=guest_meet_with]"),'Pegawai yang ingin dikunjungi')) clear = false;
+        return clear;
+    }
+
+    $("input[name=guest_phone_number]").on('input', function() {
+        phone_number_validation($(this), 'Nomor Telepon');
+    });
+
+    $('form').on('submit', function(e) {
+        if (!form_validation()) {
+            e.preventDefault();
+            $(this).addClass('was-validated')
+        }
+    });
+</script>
 <script>
     const hasGetUserMedia = _ => {
         return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -248,23 +296,6 @@
             $('#form-section').removeClass('col-md-8');
             $('#form-section').addClass('col-md-12');
             localStorage.setItem('camera', 'off');
-        }
-    });
-</script>
-<script>
-    $('form').on('submit', function(e) {
-        if (!(
-                $('#guest_name').val().trim() &&
-                $('#guest_phone_number').val().trim() &&
-                $('#visit_date').val().trim() &&
-                $('#visit_time').val().trim() &&
-                $('#guest_agency').val().trim() &&
-                $('#guest_address').val().trim() &&
-                $('#guest_meet_with').prop('selectedIndex') > 0 &&
-                $('#guest_necessity').val().trim()
-            )) {
-            e.preventDefault();
-            $(this).addClass('was-validated')
         }
     });
 </script>
