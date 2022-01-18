@@ -10,7 +10,7 @@
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
-                        <input name="keyword" class="navbar-search form-control" autofocus type="text" placeholder="Cari berdasarkan Nama Karyawan" aria-label="Search">
+                        <input name="keyword" class="navbar-search form-control" autofocus type="text" placeholder="Cari berdasarkan Nama Pegawai, NIP, Nomor Telepon" aria-label="Search">
                     </div>
                 </form>
                 <nav class="nav">
@@ -26,7 +26,7 @@
             <div class="page-header row no-gutters py-4">
                 <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                     <span class="text-uppercase page-subtitle">Fitur</span>
-                    <h3 class="page-title">Data Karyawan</h3>
+                    <h3 class="page-title">Data Pegawai</h3>
                 </div>
             </div>
             <!-- End Page Header -->
@@ -35,15 +35,18 @@
                 <div class="col">
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom d-flex">
-                            <h6 class="m-0 align-self-center" style="flex: 1;">Data Karyawan</h6>
-                            <a href="<?= BASE_URL ?>app/?page=employee_form" class="btn btn-outline-primary">Tambah Karyawan</a>
+                            <h6 class="m-0 align-self-center" style="flex: 1;">Data Pegawai</h6>
+                            <a href="<?= BASE_URL ?>app/?page=employee_form" class="btn btn-outline-primary">Tambah Pegawai</a>
                         </div>
                         <div class="card-body p-0 pb-0 text-center">
                             <table class="table mb-0 table-hover">
                                 <thead class="bg-light">
                                     <tr>
                                         <th scope="col" class="border-0">#</th>
-                                        <th scope="col" class="border-0 text-left">Nama Karyawan</th>
+                                        <th scope="col" class="border-0 text-left">Nama Pegawai</th>
+                                        <th scope="col" class="border-0 text-center">NIP</th>
+                                        <th scope="col" class="border-0 text-center">Jenis Kelamin</th>
+                                        <th scope="col" class="border-0 text-center">Nomor Telepon</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +75,7 @@
         </div>
     </main>
     <script>
+        const englishSexToIndonesiaSex = sex_in_english => sex_in_english === "MALE" ? "Laki - Laki" : "Perempuan";
         const getGuestDate = (keyword = '') => {
             $.ajax({
                 url: `employee/handler/getEmployee.php?keyword=${keyword}`,
@@ -85,6 +89,9 @@
                                 `
                             <td>${index+1}</td>
                             <td class="text-left">${value.employee_name}</td>
+                            <td class="text-center">${value.employee_nip}</td>
+                            <td class="text-center">${englishSexToIndonesiaSex(value.employee_sex)}</td>
+                            <td class="text-center">${value.employee_phone_number}</td>
                         `
                             );
                             $('tbody').append(tr);

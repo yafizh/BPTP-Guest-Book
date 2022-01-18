@@ -7,6 +7,10 @@ $sql = "
         employee_table 
     WHERE 
         employee_name LIKE '%$keyword%' 
+        OR 
+        employee_nip LIKE '$keyword%' 
+        OR 
+        employee_phone_number LIKE '$keyword%' 
     ORDER BY employee_id DESC";
 
 if ($result = $conn->query($sql)) {
