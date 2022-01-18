@@ -33,7 +33,7 @@ CREATE TABLE `user_table`(
     PRIMARY KEY (user_id) 
 );
 
-CREATE VIEW guest_view AS SELECT 
+CREATE VIEW `guest_view` AS SELECT 
     guest_table.guest_id,
     employee_table.employee_id,
     employee_table.employee_name AS guest_meet_with,
@@ -48,6 +48,9 @@ CREATE VIEW guest_view AS SELECT
     FROM guest_table 
     LEFT JOIN employee_table ON guest_table.guest_meet_with=employee_table.employee_id;
 
+-- CREATE VIEW `employee_visitor_count_view` AS 
+
+
 INSERT INTO `position_table`(
     position_name 
 ) VALUES 
@@ -55,14 +58,22 @@ INSERT INTO `position_table`(
     ('SUPERVISOR SENIO BIDANG LAYANAN');
 
 INSERT INTO `employee_table`(
-    position_id,
     employee_name,
     employee_nip,
     employee_sex,
     employee_phone_number 
 ) VALUES 
-    (1, 'Eko', '198609262015051001', 'MALE', '087866778822'),
-    (2, 'Tya', '198609262015051331', 'FEMALE', '087866776655');
+    ('Eko1', '198609262015051001', 'MALE', '087866778822'),
+    ('Eko2', '198609262015051002', 'MALE', '087866778823'),
+    ('Eko3', '198609262015051003', 'MALE', '087866778824'),
+    ('Eko4', '198609262015051004', 'MALE', '087866778825'),
+    ('Eko5', '198609262015051005', 'MALE', '087866778826'),
+    ('Eko6', '198609262015051006', 'MALE', '087866778827'),
+    ('Eko7', '198609262015051007', 'MALE', '087866778828'),
+    ('Eko8', '198609262015051008', 'MALE', '087866778829'),
+    ('Eko9', '198609262015051009', 'MALE', '0878667788210'),
+    ('Eko10', '1986092620150510010', 'MALE', '0878667788211'),
+    ('Tya', '198609262015051331', 'FEMALE', '087866776655');
 
 INSERT INTO `guest_table`(
     guest_meet_with,
@@ -75,8 +86,14 @@ INSERT INTO `guest_table`(
     guest_picture
 ) VALUES 
     (1, "Diki Suti Prasetya", "089712321284", CURRENT_TIMESTAMP(), 'Martapura', "UNISKA" ,"Magang", NULL),
-    (1, "Andry", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 DAY, 'Martapura', "UNISKA" ,"Berkunjung", NULL),
-    (1, "Nurcholis", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Astambul', "UNISKA" ,"Magang", NULL),
-    (1, "Daus", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Martapura', "UNISKA" ,"Berkunjung", NULL),
-    (1, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
-    (1, "Nursahid Arya Suyudi", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 YEAR, 'Binaung', "UNISKA" ,"Berkunjung", NULL);
+    (2, "Andry", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 DAY, 'Martapura', "UNISKA" ,"Berkunjung", NULL),
+    (3, "Nurcholis", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Astambul', "UNISKA" ,"Magang", NULL),
+    (4, "Daus", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 2 DAY, 'Martapura', "UNISKA" ,"Berkunjung", NULL),
+    (5, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (6, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (7, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (8, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (9, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (10, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (NULL, "Rania Nor Aida", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 MONTH, 'Astambul', "UNISKA" ,"Berkunjung", NULL),
+    (NULL, "Nursahid Arya Suyudi", "089712321284", CURRENT_TIMESTAMP() - INTERVAL 1 YEAR, 'Binaung', "UNISKA" ,"Berkunjung", NULL);

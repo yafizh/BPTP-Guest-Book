@@ -194,49 +194,13 @@
                     </div>
                     <div class="card-body p-0">
                         <ul class="list-group list-group-small list-group-flush" id="employee-with-visitor-count-list">
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Eko</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Eko</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">19,291</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Stack Overflow</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">11,201</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Hacker News</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">9,291</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Reddit</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">8,281</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">The Next Web</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">7,128</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Tech Crunch</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">6,218</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">YouTube</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">1,218</span>
-                            </li>
-                            <li class="list-group-item d-flex px-3">
-                                <span class="text-semibold text-fiord-blue">Adobe</span>
-                                <span class="ml-auto text-right text-semibold text-reagent-gray">827</span>
-                            </li>
                         </ul>
                     </div>
                     <div class="card-footer border-top">
                         <div class="row">
                             <div class="col">
-                                <select class="custom-select custom-select-sm">
-                                    <option selected>Minggu Lalu</option>
+                                <select name="employee-with-visitor-interval" class="custom-select custom-select-sm">
+                                    <option selected value="">Minggu Lalu</option>
                                     <option value="1">Hari ini</option>
                                     <option value="2">Bulan Lalu</option>
                                     <option value="3">Tahun Lalu</option>
@@ -254,6 +218,40 @@
     </div>
     <div id="aaa">asd</div>
 </main>
+<script>
+    const employee_with_visitor_interval = (index = 0) => {
+        let file = "";
+        if (index == 0) {
+            file = "getEmployeeWithVisitorCountLastWeek.php";
+        } else if (index == 1) {
+            file = "getEmployeeWithVisitorCountToday.php";
+        } else if (index == 2) {
+            file = "getEmployeeWithVisitorCountLastMonth.php";
+        } else if (index == 3) {
+            file = "getEmployeeWithVisitorCountLastYear.php";
+        }
+        $.getJSON(`home/handler/${file}`, function(response) {
+            console.log(response)
+            $('#employee-with-visitor-count-list').html('');
+            if (response.isSuccess) {
+                $.each(response.data, (index, value) => {
+                    $('#employee-with-visitor-count-list').append(`
+                    <li class="list-group-item d-flex px-3">
+                        <span class="text-semibold text-fiord-blue">${value.employee_name}</span>
+                        <span class="ml-auto text-right text-semibold text-reagent-gray">${value.visitor_count}</span>
+                    </li>
+                `);
+                })
+            }
+        }).fail(function(error) {
+            console.log(error);
+        });
+    }
+    $("select[name=employee-with-visitor-interval]").on('change', function() {
+        employee_with_visitor_interval($(this).prop('selectedIndex'));
+    });
+    employee_with_visitor_interval();
+</script>
 <script type="text/javascript">
     $("#aaa").on("click", function() {
         var divContents = "asdasdad";
@@ -522,14 +520,4 @@
 
     // Render the chart.
     window.BlogOverviewUsers.render();
-
-
-    $.getJSON('home/handler/getEmployeeWithVisitorCount.php', function(response) {
-        console.log(response);
-        if (response.isSuccess) {
-            console.log(response.data);
-        }
-    }).fail(function(error) {
-        console.log(error);
-    });
 </script>
