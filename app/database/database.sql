@@ -1,15 +1,8 @@
 CREATE DATABASE `guest_book_bptp`;
 USE `guest_book_bptp`;
 
-CREATE TABLE `position_table`(
-    position_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    position_name VARCHAR(255) NOT NULL,
-    PRIMARY KEY (position_id)
-);
-
 CREATE TABLE `employee_table`(
     employee_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    position_id INT UNSIGNED NOT NULL,
     employee_name VARCHAR(255) NOT NULL,
     employee_nip VARCHAR(20) NOT NULL UNIQUE,
     employee_sex ENUM('MALE','FEMALE') NOT NULL,
