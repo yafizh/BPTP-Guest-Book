@@ -105,11 +105,11 @@
                             <div class="card-header border-bottom">
                                 <h6 class="m-0">Jumlah Pengunjung</h6>
                             </div>
-                            <div class="card-body p-3 d-flex">
+                            <div class="card-body p-3 d-flex" id="guest-count">
                                 <div class="d-flex flex-column m-auto">
                                     <div class="stats-small__data text-center">
-                                        <span class="stats-small__label text-uppercase">1 - 12 Januari</span>
-                                        <h6 class="stats-small__value count my-3">10</h6>
+                                        <span class="stats-small__label text-uppercase">1 Januari 2022 - 12 Januari 2022</span>
+                                        <h6 class="stats-small__value count my-3"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -264,15 +264,44 @@
         printWindow.print();
     });
 </script>
+<script src="utils/calendarID.js"></script>
 <script>
     // https://stackoverflow.com/questions/13009755/getjson-synchronous
     $.ajaxSetup({
         async: false
     });
 
-    // Blog overview date range init.
-    $('#blog-overview-date-range').datepicker({});
 
+
+    
+    // Blog overview date range init.
+    $('#blog-overview-date-range').datepicker({
+        format: 'dd-mm-yyyy'
+    });
+    const getGuestCount = (start, end) => {
+        $.getJSON(`home/handler/getGuestBasedDate.php?start=${start}&end=${end}`, function(response) {
+            if (response.isSuccess) {
+                const x = `${start.split('-')[0]} ${MONTH_IN_INDONESIA_WITH_INDEX[parseInt(start.split('-')[1])-1]} ${start.split('-')[2]} - ${end.split('-')[0]} ${MONTH_IN_INDONESIA_WITH_INDEX[parseInt(end.split('-')[1])-1]} ${end.split('-')[2]}`
+                $("#guest-count .stats-small__label").text(x);
+                $("#guest-count .count").text(response.data.count);
+            } else console.log(response)
+        }).fail(function(error) {
+            console.log(error);
+        });
+    }
+    $("#blog-overview-date-range").on('change', _ => {
+        const start = $('input[name=start]').val();
+        const end = $('input[name=end]').val();
+        getGuestCount(start, end);
+    })
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    let start = `01-${mm}-${yyyy}`;
+    let end = `${dd}-${mm}-${yyyy}`;
+    getGuestCount(start, end);
 
     let guestToday;
     let guestYesterday;
@@ -284,6 +313,9 @@
     });
 
     $('#today .count').text(guestToday['guest_today_count']);
+
+
+
 
 
     let guestThisWeek;
@@ -323,8 +355,6 @@
         },
         options: chartOptions
     });
-
-
 
 
 
