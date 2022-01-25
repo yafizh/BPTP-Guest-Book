@@ -273,7 +273,7 @@
 
 
 
-    
+
     // Blog overview date range init.
     $('#blog-overview-date-range').datepicker({
         format: 'dd-mm-yyyy'
@@ -335,7 +335,10 @@
     });
 
     $('#this-week .count').text(guestThisWeek['guest_this_week_count']);
-    $('#this-week .stats-small__percentage').text(((guestThisWeek['guest_this_week_count'] - guestLastWeek['guest_last_week_count']) / guestLastWeek['guest_last_week_count']) * 100 + "%");
+    if (guestLastWeek['guest_last_week_count'] == 0)
+        $('#this-week .stats-small__percentage').text((guestThisWeek['guest_this_week_count'] * 100) + '%');
+    else
+        $('#this-week .stats-small__percentage').text(((guestThisWeek['guest_this_week_count'] - guestLastWeek['guest_last_week_count']) / guestLastWeek['guest_last_week_count']) * 100 + "%");
     guestThisWeek['guest_this_week_count'] > guestLastWeek['guest_last_week_count'] ? $('#this-week .stats-small__percentage').addClass("stats-small__percentage--increase") : $('#this-week .stats-small__percentage').addClass("stats-small__percentage--decrease");
 
     var chartOptions = boSmallStatsOptions(Math.max.apply(Math, guestThisWeek['guest_this_week'].map(value => parseInt(value.guest_visit_date_count))) + 1);
@@ -363,6 +366,7 @@
     let guestThisMonth;
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
+        console.log(response)
         if (response.isSuccess) guestThisMonth = response.data;
         else console.log(response);
     }).fail(function(error) {
@@ -370,13 +374,22 @@
     });
 
     $.getJSON('home/handler/getGuestLastMonth.php', function(response) {
+        console.log(response)
         if (response.isSuccess) guestLastMonth = response.data;
         else console.log(response);
     }).fail(function(error) {
         console.log(error);
     });
+
+
     $('#this-month .count').text(guestThisMonth['guest_this_month_count']);
-    $('#this-month .stats-small__percentage').text(((guestThisMonth['guest_this_month_count'] - guestLastMonth['guest_last_month_count']) / guestLastMonth['guest_last_month_count']) * 100 + "%");
+    if (guestLastMonth['guest_last_month_count'] == 0)
+        $('#this-month .stats-small__percentage').text((guestThisMonth['guest_this_month_count'] * 100) + '%');
+    else {
+        const calculate = ((guestThisMonth['guest_this_month_count'] - guestLastMonth['guest_last_month_count']) / guestLastMonth['guest_last_month_count']) * 100;
+        console.log(calculate)
+        $('#this-month .stats-small__percentage').text(Math.abs(parseInt(calculate)) + "%");
+    }
     guestThisMonth['guest_this_month_count'] > guestLastMonth['guest_last_month_count'] ? $('#this-month .stats-small__percentage').addClass("stats-small__percentage--increase") : $('#this-month .stats-small__percentage').addClass("stats-small__percentage--decrease");
 
     // Options
