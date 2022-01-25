@@ -360,9 +360,6 @@
     });
 
 
-a
-
-
     let guestThisMonth;
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
