@@ -10,7 +10,7 @@ $sql = "
         guest_visit_date    LIKE '%$keyword%' OR
         guest_agency        LIKE '%$keyword%' OR 
         guest_meet_with     LIKE '%$keyword%' 
-    ORDER BY guest_id DESC";
+    ORDER BY guest_visit_date DESC";
 
 if ($result = $conn->query($sql)) {
     echo json_encode([
