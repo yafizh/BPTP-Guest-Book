@@ -6,19 +6,22 @@ require_once "../../database/connection.php";
 $employee_name          = $conn->real_escape_string($_POST['employee_name']);
 $employee_nip           = $conn->real_escape_string($_POST['employee_nip']);
 $employee_sex           = $conn->real_escape_string($_POST['employee_sex']);
-$employee_phone_number  = $conn->real_escape_string($_POST['employee_phone_number']);
+$employee_position      = $conn->real_escape_string($_POST['employee_position']);
+$employee_mastery       = $conn->real_escape_string($_POST['employee_mastery']);
 
 $sql = "
     INSERT INTO employee_table(
         employee_name,
         employee_nip,
         employee_sex,
-        employee_phone_number 
+        employee_position, 
+        employee_mastery 
     ) VALUES (
         '$employee_name',
         '$employee_nip',
         '$employee_sex',
-        '$employee_phone_number' 
+        '$employee_position', 
+        '$employee_mastery' 
     )
 ";
 

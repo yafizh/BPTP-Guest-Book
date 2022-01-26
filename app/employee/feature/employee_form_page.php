@@ -10,13 +10,6 @@
         </nav>
     </div>
     <!-- / .main-navbar -->
-    <style>
-        /* For animation */
-        /* https://stackoverflow.com/questions/42979772/bootstrap-4-animate-column-width-change */
-        .row [class*='col-'] {
-            transition: flex 0.5s ease-in-out, max-width .5s ease-in-out;
-        }
-    </style>
     <?php if (isset($_SESSION['isSuccess'])) : ?>
         <?php if ($_SESSION['isSuccess']) : ?>
             <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
@@ -70,14 +63,14 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
                                                         <label for="employee_name">Nama Karyawan</label>
-                                                        <input type="text" class="form-control" name="employee_name" autofocus autocomplete="off" required>
+                                                        <input type="text" class="form-control" name="employee_name" id="employee_name" autofocus autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-12" id="employee_name_field">
+                                                    <div class="form-group col-md-12">
                                                         <label for="employee_nip">NIP Karyawan</label>
-                                                        <input type="text" class="form-control" pattern="[0-9]+" name="employee_nip" autocomplete="off" required>
+                                                        <input type="text" class="form-control" pattern="[0-9]+" name="employee_nip" id="employee_nip"  autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
@@ -96,8 +89,15 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="employee_phone_number">Nomor Telepon</label>
-                                                        <input type="text" class="form-control" pattern="(\+[0-9]|[0-9])*" name="employee_phone_number" autocomplete="off" required>
+                                                        <label for="employee_position">Jabatan</label>
+                                                        <input type="text" class="form-control" name="employee_position" id="employee_position" autocomplete="off" required>
+                                                        <div class="invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="employee_mastery">Keahlian</label>
+                                                        <input type="text" class="form-control" name="employee_mastery" id="employee_mastery" autofocus autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
@@ -119,14 +119,10 @@
     const form_validation = _ => {
         let clear = true;
         if (!empty_validation($("input[name=employee_name]"))) clear = false;
-        if (!phone_number_validation($('input[name=employee_phone_number]'))) clear = false;
+        if (!empty_validation($("input[name=employee_position]"))) clear = false;
         if (!number_validation($('input[name=employee_nip]'))) clear = false;
         return clear;
     }
-
-    $("input[name=employee_phone_number]").on('input', function() {
-        phone_number_validation($(this))
-    });
 
     $("input[name=employee_nip]").on('input', function() {
         number_validation($(this))

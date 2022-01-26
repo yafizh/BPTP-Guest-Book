@@ -10,8 +10,10 @@ $sql = "
         OR 
         employee_nip LIKE '$keyword%' 
         OR 
-        employee_phone_number LIKE '$keyword%' 
-    ORDER BY employee_id DESC";
+        employee_position LIKE '$keyword%' 
+        OR 
+        employee_mastery LIKE '$keyword%' 
+    ORDER BY employee_name DESC";
 
 if ($result = $conn->query($sql)) {
     echo json_encode([

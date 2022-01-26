@@ -10,7 +10,7 @@
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
-                        <input name="keyword" class="navbar-search form-control" autofocus type="text" placeholder="Cari berdasarkan Nama Pegawai, NIP, Nomor Telepon" aria-label="Search">
+                        <input name="keyword" class="navbar-search form-control" autofocus type="text" placeholder="Cari berdasarkan Nama Pegawai, NIP, Jabatan, Keahlian" aria-label="Search">
                     </div>
                 </form>
                 <nav class="nav">
@@ -46,28 +46,15 @@
                                         <th scope="col" class="border-0 text-left">Nama Pegawai</th>
                                         <th scope="col" class="border-0 text-center">NIP</th>
                                         <th scope="col" class="border-0 text-center">Jenis Kelamin</th>
-                                        <th scope="col" class="border-0 text-center">Nomor Telepon</th>
+                                        <th scope="col" class="border-0 text-center">Jabatan</th>
+                                        <th scope="col" class="border-0 text-center">Keahlian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card-footer border-top">
-                            <!-- <div class="row">
-                            <div class="col text-center view-report">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div> -->
-                        </div>
+                        <div class="card-footer border-top"></div>
                     </div>
                 </div>
             </div>
@@ -91,7 +78,8 @@
                             <td class="text-left">${value.employee_name}</td>
                             <td class="text-center">${value.employee_nip}</td>
                             <td class="text-center">${englishSexToIndonesiaSex(value.employee_sex)}</td>
-                            <td class="text-center">${value.employee_phone_number}</td>
+                            <td class="text-center">${value.employee_position}</td>
+                            <td class="text-center">${value.employee_mastery}</td>
                         `
                             );
                             $('tbody').append(tr);
