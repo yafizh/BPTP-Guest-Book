@@ -135,7 +135,7 @@
         </div>
     </div>
 </div>
-
+<script src="utils/functions.js"></script>
 <script>
     const guestDetail = guest => {
         $("#exampleModal img").attr("src", guest.guest_picture);
@@ -160,10 +160,10 @@
                     $('tbody').html('');
                     $.each(response.data, function(index, value) {
                         const tr = $('<tr></tr>').html(
-                            `
+                        `
                             <td>${index+1}</td>
                             <td class="text-left">${value.guest_name}</td>
-                            <td>${value.guest_visit_date}</td>
+                            <td>${engToIdDate(value.guest_visit_date)}</td>
                             <td>${value.guest_agency}</td>
                             <td>${value.guest_meet_with ? value.guest_meet_with : 'Pegawai Lainnya'}</td>
                         `
