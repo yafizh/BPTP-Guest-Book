@@ -221,14 +221,19 @@
 <script>
     const employee_with_visitor_interval = (index = 0) => {
         let file = "";
-        if (index == 0) {
-            file = "getEmployeeWithVisitorCountLastWeek.php";
-        } else if (index == 1) {
-            file = "getEmployeeWithVisitorCountToday.php";
-        } else if (index == 2) {
-            file = "getEmployeeWithVisitorCountLastMonth.php";
-        } else if (index == 3) {
-            file = "getEmployeeWithVisitorCountLastYear.php";
+        switch (index) {
+            case 0:
+                file = "getEmployeeWithVisitorCountLastWeek.php";
+                break;
+            case 1:
+                file = "getEmployeeWithVisitorCountToday.php";
+                break;
+            case 2:
+                file = "getEmployeeWithVisitorCountLastMonth.php";
+                break;
+            case 3:
+                file = "getEmployeeWithVisitorCountLastYear.php";
+                break;
         }
         $.getJSON(`home/handler/${file}`, function(response) {
             console.log(response)
@@ -253,7 +258,7 @@
     employee_with_visitor_interval();
 </script>
 <script type="text/javascript">
-    
+
 </script>
 <script src="utils/calendarID.js"></script>
 <script>
@@ -261,8 +266,6 @@
     $.ajaxSetup({
         async: false
     });
-
-
 
 
     // Blog overview date range init.
