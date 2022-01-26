@@ -89,7 +89,7 @@
                         <h6 class="m-0">Grafik Pengunjung </h6>
                     </div>
                     <div class="card-body pt-0">
-                        <canvas height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
+                        <canvas id="anycanvas" height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="row">
                     <!-- Top Referrals Component -->
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                         <div class="stats-small stats-small--1 card card-small">
                             <div class="card-header border-bottom">
                                 <h6 class="m-0">Jumlah Admin</h6>
@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- End Top Referrals Component -->
                     <!-- Top Referrals Component -->
                     <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
@@ -253,16 +253,7 @@
     employee_with_visitor_interval();
 </script>
 <script type="text/javascript">
-    $("#aaa").on("click", function() {
-        var divContents = "asdasdad";
-        var printWindow = window.open('', '', 'height=400,width=800');
-        printWindow.document.write('<html><head><title>DIV Contents</title>');
-        printWindow.document.write('</head><body >');
-        printWindow.document.write(divContents);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        printWindow.print();
-    });
+    
 </script>
 <script src="utils/calendarID.js"></script>
 <script>
@@ -560,4 +551,28 @@
 
     // Render the chart.
     window.BlogOverviewUsers.render();
+
+
+    $("#aaa").on("click", function() {
+        var dataUrl = document.getElementById('anycanvas').toDataURL(); //attempt to save base64 string to server using this var  
+        var windowContent = '<!DOCTYPE html>';
+        windowContent += '<html>'
+        windowContent += '<head><title>Print canvas</title></head>';
+        windowContent += '<body>'
+        windowContent += '<img src="' + dataUrl + '">';
+        windowContent += '</body>';
+        windowContent += '</html>';
+        var printWin = window.open('', '', 'width=1030,height=260');
+        printWin.document.open();
+        printWin.document.write(windowContent);
+
+        // var divContents = "asdasdad";
+        // var printWindow = window.open('', '', 'height=400,width=800');
+        // printWindow.document.write('<html><head><title>DIV Contents</title>');
+        // printWindow.document.write('</head><body >');
+        // printWindow.document.write('<img src="' + document.getElementById('anycanvas').toDataURL() + '">');
+        // printWindow.document.write('</body></html>');
+        // printWin.document.close();
+        // printWin.print();
+    });
 </script>
