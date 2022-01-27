@@ -177,10 +177,15 @@
                             <div class="card-footer border-top">
                                 <div class="row">
                                     <div class="col text-center view-report">
-                                        <a href="#" class="btn btn-white">Cetak Data Pegawai</a>
+                                        <button id="print-employee" class="btn btn-white">Cetak Data Pegawai</a>
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $("#print-employee").on('click', _ => {
+                                    window.open('http://localhost/magang_ku/app/index.php?page=employee_report', 'Data Pegawai', 'fullscreen=1');
+                                })
+                            </script>
                         </div>
                     </div>
                     <!-- End Top Referrals Component -->
@@ -216,19 +221,8 @@
             <!-- End Top Referrals Component -->
         </div>
     </div>
-    <div id="aaa">asd</div>
 </main>
 <script src="utils/functions.js"></script>
-<script src="utils/templates.js"></script>
-<script>
-    $.getJSON(`employee/handler/getEmployee.php?keyword=`, function(response) {
-        if (response.isSuccess) {
-            console.log(employee_table_template(response.data))
-        } else console.log(response)
-    }).fail(function(error) {
-        console.log(error);
-    });
-</script>
 <script>
     const employee_with_visitor_interval = (index = 0) => {
         let file = "";
@@ -247,7 +241,6 @@
                 break;
         }
         $.getJSON(`home/handler/${file}`, function(response) {
-            console.log(response)
             $('#employee-with-visitor-count-list').html('');
             if (response.isSuccess) {
                 $.each(response.data, (index, value) => {
@@ -365,7 +358,6 @@
     let guestThisMonth;
     let guestLastMonth;
     $.getJSON('home/handler/getGuestThisMonth.php', function(response) {
-        console.log(response)
         if (response.isSuccess) guestThisMonth = response.data;
         else console.log(response);
     }).fail(function(error) {
@@ -373,7 +365,6 @@
     });
 
     $.getJSON('home/handler/getGuestLastMonth.php', function(response) {
-        console.log(response)
         if (response.isSuccess) guestLastMonth = response.data;
         else console.log(response);
     }).fail(function(error) {
@@ -386,7 +377,6 @@
         $('#this-month .stats-small__percentage').text((guestThisMonth['guest_this_month_count'] * 100) + '%');
     else {
         const calculate = ((guestThisMonth['guest_this_month_count'] - guestLastMonth['guest_last_month_count']) / guestLastMonth['guest_last_month_count']) * 100;
-        console.log(calculate)
         $('#this-month .stats-small__percentage').text(Math.abs(parseInt(calculate)) + "%");
     }
     guestThisMonth['guest_this_month_count'] > guestLastMonth['guest_last_month_count'] ? $('#this-month .stats-small__percentage').addClass("stats-small__percentage--increase") : $('#this-month .stats-small__percentage').addClass("stats-small__percentage--decrease");
@@ -562,28 +552,4 @@
 
     // Render the chart.
     window.BlogOverviewUsers.render();
-
-
-    $("#aaa").on("click", function() {
-        var dataUrl = document.getElementById('anycanvas').toDataURL(); //attempt to save base64 string to server using this var  
-        var windowContent = '<!DOCTYPE html>';
-        windowContent += '<html>'
-        windowContent += '<head><title>Print canvas</title></head>';
-        windowContent += '<body>'
-        windowContent += '<img src="' + dataUrl + '">';
-        windowContent += '</body>';
-        windowContent += '</html>';
-        var printWin = window.open('', '', 'width=1030,height=260');
-        printWin.document.open();
-        printWin.document.write(windowContent);
-
-        // var divContents = "asdasdad";
-        // var printWindow = window.open('', '', 'height=400,width=800');
-        // printWindow.document.write('<html><head><title>DIV Contents</title>');
-        // printWindow.document.write('</head><body >');
-        // printWindow.document.write('<img src="' + document.getElementById('anycanvas').toDataURL() + '">');
-        // printWindow.document.write('</body></html>');
-        // printWin.document.close();
-        // printWin.print();
-    });
 </script>

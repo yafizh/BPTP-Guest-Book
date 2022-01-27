@@ -62,13 +62,13 @@
                 `
                         );
                         $('tbody').append(tr);
-                    })
-                } else {
-
-                }
+                    });
+                    window.print();
+                } else window.close();
             },
             error: function(response) {
-                console.log(response)
+                console.log(response);
+                window.close();
             }
         });
     }
