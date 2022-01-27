@@ -218,6 +218,17 @@
     </div>
     <div id="aaa">asd</div>
 </main>
+<script src="utils/functions.js"></script>
+<script src="utils/templates.js"></script>
+<script>
+    $.getJSON(`employee/handler/getEmployee.php?keyword=`, function(response) {
+        if (response.isSuccess) {
+            console.log(employee_table_template(response.data))
+        } else console.log(response)
+    }).fail(function(error) {
+        console.log(error);
+    });
+</script>
 <script>
     const employee_with_visitor_interval = (index = 0) => {
         let file = "";
@@ -256,9 +267,6 @@
         employee_with_visitor_interval($(this).prop('selectedIndex'));
     });
     employee_with_visitor_interval();
-</script>
-<script type="text/javascript">
-
 </script>
 <script src="utils/calendarID.js"></script>
 <script>
