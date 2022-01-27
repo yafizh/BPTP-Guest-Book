@@ -127,10 +127,20 @@
                                         </div>
                                     </div>
                                     <div class="col text-right view-report">
-                                        <a href="#">Cetak Laporan &rarr;</a>
+                                        <a href="#" id="print-guest">Cetak Laporan &rarr;</a>
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $("#print-guest").on('click', e => {
+                                    e.preventDefault();
+                                    if($('input[name=start]').val() && $('input[name=end]').val()){
+                                        window.open(`http://localhost/magang_ku/app/index.php?page=guest_report&start=${$('input[name=start]').val()}&end=${$('input[name=end]').val()}`, 'Data Pengunjung', 'fullscreen=1');
+                                    } else {
+                                        window.open(`http://localhost/magang_ku/app/index.php?page=guest_report&start=01-${mm}-${yyyy}&end=${dd}-${mm}-${yyyy}`, 'Data Pengunjung', 'fullscreen=1');
+                                    }
+                                })
+                            </script>
                         </div>
                     </div>
                     <!-- End Top Referrals Component -->
