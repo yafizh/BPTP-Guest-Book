@@ -134,7 +134,7 @@
                             <script>
                                 $("#print-guest").on('click', e => {
                                     e.preventDefault();
-                                    if($('input[name=start]').val() && $('input[name=end]').val()){
+                                    if ($('input[name=start]').val() && $('input[name=end]').val()) {
                                         window.open(`http://localhost/magang_ku/app/index.php?page=guest_report&start=${$('input[name=start]').val()}&end=${$('input[name=end]').val()}`, 'Data Pengunjung', 'fullscreen=1');
                                     } else {
                                         window.open(`http://localhost/magang_ku/app/index.php?page=guest_report&start=01-${mm}-${yyyy}&end=${dd}-${mm}-${yyyy}`, 'Data Pengunjung', 'fullscreen=1');
@@ -215,10 +215,10 @@
                         <div class="row">
                             <div class="col">
                                 <select name="employee-with-visitor-interval" class="custom-select custom-select-sm">
-                                    <option selected value="">Minggu Lalu</option>
-                                    <option value="1">Hari ini</option>
-                                    <option value="2">Bulan Lalu</option>
-                                    <option value="3">Tahun Lalu</option>
+                                    <option selected value="LAST_WEEK">Minggu Lalu</option>
+                                    <option value="TODAY">Hari ini</option>
+                                    <option value="LAST_MONTH">Bulan Lalu</option>
+                                    <option value="LAST_YEAR">Tahun Lalu</option>
                                 </select>
                             </div>
                             <div class="col text-right view-report">
@@ -234,40 +234,32 @@
 </main>
 <script src="utils/functions.js"></script>
 <script>
-    const employee_with_visitor_interval = (index = 0) => {
-        let file = "";
-        switch (index) {
-            case 0:
-                file = "getEmployeeWithVisitorCountLastWeek.php";
-                break;
-            case 1:
-                file = "getEmployeeWithVisitorCountToday.php";
-                break;
-            case 2:
-                file = "getEmployeeWithVisitorCountLastMonth.php";
-                break;
-            case 3:
-                file = "getEmployeeWithVisitorCountLastYear.php";
-                break;
-        }
-        $.getJSON(`home/handler/${file}`, function(response) {
-            $('#employee-with-visitor-count-list').html('');
-            if (response.isSuccess) {
-                $.each(response.data, (index, value) => {
-                    $('#employee-with-visitor-count-list').append(`
-                    <li class="list-group-item d-flex px-3">
-                        <span class="text-semibold text-fiord-blue">${value.employee_name}</span>
-                        <span class="ml-auto text-right text-semibold text-reagent-gray">${value.visitor_count}</span>
-                    </li>
-                `);
-                })
-            }
-        }).fail(function(error) {
-            console.log(error);
-        });
+    const employee_with_visitor_interval = (measure = 'LAST_WEEK') => {
+        $.post('home/handler/getEmployeeWithVisitorCount.php', {
+                'measure': measure,
+                'limit': 9
+            }, function(response) {
+                $('#employee-with-visitor-count-list').html('');
+                if (response.isSuccess) {
+                    $.each(response.data, (index, value) => {
+                        $('#employee-with-visitor-count-list').append(`
+                            <li class="list-group-item d-flex px-3">
+                                <span class="text-semibold text-fiord-blue">${value.employee_name}</span>
+                                <span class="ml-auto text-right text-semibold text-reagent-gray">${value.visitor_count}</span>
+                            </li>   
+                        `);
+                    })
+                }
+            }, "json")
+            .done(function() {
+                // alert("second success");
+            })
+            .fail(function() {
+                alert("error");
+            });
     }
     $("select[name=employee-with-visitor-interval]").on('change', function() {
-        employee_with_visitor_interval($(this).prop('selectedIndex'));
+        employee_with_visitor_interval($(this).val());
     });
     employee_with_visitor_interval();
 </script>
