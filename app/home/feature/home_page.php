@@ -222,7 +222,7 @@
                                 </select>
                             </div>
                             <div class="col text-right view-report">
-                                <a href="#">Cetak Laporan &rarr;</a>
+                                <a href="#" id="print-employee-visitor-count">Cetak Laporan &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -262,6 +262,10 @@
         employee_with_visitor_interval($(this).val());
     });
     employee_with_visitor_interval();
+    $("#print-employee-visitor-count").on('click', e => {
+        e.preventDefault();
+        window.open(`http://localhost/magang_ku/app/index.php?page=employee_visitor_count_report&measure=${($("select[name=employee-with-visitor-interval]").val())}`, 'Data Pegawai', 'fullscreen=1');
+    });
 </script>
 <script src="utils/calendarID.js"></script>
 <script>
