@@ -24,9 +24,12 @@ if (isset($_GET['page'])) {
     case "guest_report":
       include_once "home/report/guest_report.php";
       break;
-      case "employee_visitor_count_report":
-        include_once "home/report/employee_visitor_count_report.php";
-        break;
+    case "employee_visitor_count_report":
+      include_once "home/report/employee_visitor_count_report.php";
+      break;
+    case "guest_detail_report":
+      include_once "guest/report/guest_detail_report.php";
+      break;
     default:
       include_once "page_not_found.html";
   }

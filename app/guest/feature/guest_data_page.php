@@ -130,13 +130,32 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-accent">Cetak</button>
             </div>
         </div>
     </div>
 </div>
 <script src="utils/functions.js"></script>
 <script>
+    const guestDetailPrint = guest => {
+        $.post('http://localhost/magang_ku/app/index.php?page=guest_detail_report', {
+                'guest': guest
+            }, function(response) {
+                var printWin = window.open('', '', 'fullscreen=yes');
+                printWin.document.open();
+                printWin.document.write(response);
+                // printWin.document.close();
+                // printWin.focus();
+                // printWin.print();
+                // printWin.close();
+            })
+            .done(function() {
+                // alert("second success");
+            })
+            .fail(function(response) {
+                console.log(response);
+            });
+    }
     const guestDetail = guest => {
         $("#exampleModal img").attr("src", guest.guest_picture);
         $("#exampleModal #guest_name").text(guest.guest_name);
@@ -147,6 +166,10 @@
         $("#exampleModal #guest_address").text(guest.guest_address);
         $("#exampleModal #guest_meet_with").text(guest.guest_meet_with);
         $("#exampleModal #guest_necessity").text(guest.guest_necessity);
+        document.querySelector('#exampleModal .modal-footer button').onclick = _ => guestDetailPrint(guest);
+        // $("#exampleModal .modal-footer button").unbind('click').bind('click', _ => {
+        //     console.log(guest)
+        // });
         $('#exampleModal').modal();
     }
 
@@ -160,7 +183,7 @@
                     $('tbody').html('');
                     $.each(response.data, function(index, value) {
                         const tr = $('<tr></tr>').html(
-                        `
+                            `
                             <td>${index+1}</td>
                             <td class="text-left">${value.guest_name}</td>
                             <td>${engToIdDate(value.guest_visit_date)}</td>
