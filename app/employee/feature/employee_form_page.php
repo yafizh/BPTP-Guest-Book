@@ -17,7 +17,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
                 <i class="fa fa-check mx-2"></i>
-                <strong>Berhasil!</strong> Karyawan berhasil ditambahkan!
+                <strong>Berhasil!</strong> Pegawai berhasil ditambahkan!
             </div>
         <?php else : ?>
             <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
@@ -42,7 +42,7 @@
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <span class="text-uppercase page-subtitle">Fitur</span>
-                <h3 class="page-title">Tambah Data Karyawan</h3>
+                <h3 class="page-title">Tambah Data Pegawai</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -51,7 +51,7 @@
             <div class="col-12">
                 <div class="card card-small mb-4">
                     <div class="card-header border-bottom d-flex">
-                        <h6 class="m-0 align-self-center" style="flex: 1;">Identitas Karyawan</h6>
+                        <h6 class="m-0 align-self-center" style="flex: 1;">Identitas Pegawai</h6>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
@@ -62,14 +62,14 @@
                                             <div id="form-section" class="form-group col-md-12">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="employee_name">Nama Karyawan</label>
+                                                        <label for="employee_name">Nama Pegawai</label>
                                                         <input type="text" class="form-control" name="employee_name" id="employee_name" autofocus autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="employee_nip">NIP Karyawan</label>
+                                                        <label for="employee_nip">NIP Pegawai</label>
                                                         <input type="text" class="form-control" pattern="[0-9]+" name="employee_nip" id="employee_nip"  autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
@@ -103,7 +103,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-accent">Tambahkan Karyawan</button>
+                                        <button type="submit" class="btn btn-accent">Tambahkan Pegawai</button>
                                     </form>
                                 </div>
                             </div>
