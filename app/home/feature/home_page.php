@@ -89,8 +89,29 @@
                         <h6 class="m-0">Grafik Pengunjung </h6>
                     </div>
                     <div class="card-body pt-0">
-                        <canvas id="anycanvas" height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
+                        <div class="row border-bottom py-2 bg-light">
+                            <div class="col-12 col-sm-6" style="visibility: hidden;">
+                                <!-- <div id="blog-overview-date-range" class="input-daterange input-group input-group-sm my-auto ml-auto mr-auto ml-sm-auto mr-sm-0" style="max-width: 350px;">
+                                    <input type="text" class="input-sm form-control" name="start" placeholder="Start Date" id="blog-overview-date-range-1">
+                                    <input type="text" class="input-sm form-control" name="end" placeholder="End Date" id="blog-overview-date-range-2">
+                                    <span class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="material-icons"></i>
+                                        </span>
+                                    </span>
+                                </div> -->
+                            </div>
+                            <div class="col-12 col-sm-6 d-flex mb-2 mb-sm-0">
+                                <button id="print-visitor-chart" type="button" class="btn btn-sm btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0">Cetak Grafik</button>
+                            </div>
+                        </div>
+                        <canvas height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
                     </div>
+                    <script>
+                        $("#print-visitor-chart").on('click', _ => {
+                            window.open(`http://localhost/magang_ku/app/index.php?page=guest_graph`, 'Grafik Pengunjung', 'fullscreen=1');
+                        });
+                    </script>
                 </div>
             </div>
             <!-- End Users Stats -->

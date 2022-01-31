@@ -30,6 +30,9 @@ if (isset($_GET['page'])) {
     case "guest_detail_report":
       include_once "guest/report/guest_detail_report.php";
       break;
+    case "guest_graph":
+      include_once "home/report/guest_graph.php";
+      break;
     default:
       include_once "page_not_found.html";
   }
