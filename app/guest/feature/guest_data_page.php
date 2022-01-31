@@ -130,6 +130,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="" id="delete" class="btn btn-danger">Hapus</a>
                 <button type="button" class="btn btn-accent">Cetak</button>
             </div>
         </div>
@@ -167,6 +168,7 @@
         $("#exampleModal #guest_meet_with").text(guest.guest_meet_with);
         $("#exampleModal #guest_necessity").text(guest.guest_necessity);
         document.querySelector('#exampleModal .modal-footer button').onclick = _ => guestDetailPrint(guest);
+        $("#exampleModal .modal-footer #delete").attr('href', 'guest/handler/deleteGuest.php?guest_id='+guest.guest_id);
         // $("#exampleModal .modal-footer button").unbind('click').bind('click', _ => {
         //     console.log(guest)
         // });
