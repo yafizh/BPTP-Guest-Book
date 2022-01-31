@@ -113,11 +113,11 @@
       const employeeDetail = employee => {
         $("#exampleModal #employee_name").text(employee.employee_name);
         $("#exampleModal #employee_nip").text(employee.employee_nip);
-        $("#exampleModal #employee_sex").text(employee.employee_sex);
+        $("#exampleModal #employee_sex").text(engToIdSex(employee.employee_sex));
         $("#exampleModal #employee_position").text(employee.employee_position);
         $("#exampleModal #employee_mastery").text(employee.employee_mastery);
-        $("#exampleModal .modal-footer #edit").attr('href', 'index.php?page=employee_edit_form&employee_id='+employee.employee_id);
-        $("#exampleModal .modal-footer #delete").attr('href', 'employee/handler/deleteEmployee.php?employee_id='+employee.employee_id);
+        $("#exampleModal .modal-footer #edit").attr('href', `index.php?page=employee_edit_form&employee_id=${employee.employee_id}`);
+        $("#exampleModal .modal-footer #delete").attr('href', `employee/handler/deleteEmployee.php?employee_id=${employee.employee_id}`);
         $('#exampleModal').modal();
     }
 
