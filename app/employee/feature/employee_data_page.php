@@ -117,7 +117,7 @@
         $("#exampleModal #employee_position").text(employee.employee_position);
         $("#exampleModal #employee_mastery").text(employee.employee_mastery);
         $("#exampleModal .modal-footer #edit").attr('href', 'index.php?page=employee_edit_form&employee_id='+employee.employee_id);
-        $("#exampleModal .modal-footer #delete").attr('href', );
+        $("#exampleModal .modal-footer #delete").attr('href', 'employee/handler/deleteEmployee.php?employee_id='+employee.employee_id);
         $('#exampleModal').modal();
     }
 
