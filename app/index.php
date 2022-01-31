@@ -18,6 +18,10 @@ if (isset($_GET['page'])) {
       include_once "templates/sidebar.php";
       include_once "employee/feature/employee_form_page.php";
       break;
+    case "employee_edit_form":
+      include_once "templates/sidebar.php";
+      include_once "employee/feature/employee_edit_form_page.php";
+      break;
     case "employee_report":
       include_once "home/report/employee_report.php";
       break;

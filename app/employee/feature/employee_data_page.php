@@ -60,8 +60,67 @@
         <!-- End Default Light Table -->
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <div class="form-row mb-2 justify-content-center">
+                    <img src="" alt="" style="width: 70%;">
+                </div>
+                <div class="form-row mb-2">
+                    <div class="col-md-5">Nama Pegawai</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="employee_name"></div>
+                </div>
+                <div class="form-row mb-2">
+                    <div class="col-md-5">NIP</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="employee_nip"></div>
+                </div>
+                <div class="form-row mb-2">
+                    <div class="col-md-5">Jenis Kelamin</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="employee_sex"></div>
+                </div>
+                <div class="form-row mb-2">
+                    <div class="col-md-5">Jabatan</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="employee_position"></div>
+                </div>
+                <div class="form-row mb-2">
+                    <div class="col-md-5">Keahlian</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="employee_mastery"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" id="edit" class="btn btn-warning">Ubah</a>
+                <a href="" id="delete" class="btn btn-danger">Hapus</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="utils/functions.js"></script>
 <script>
+      const employeeDetail = employee => {
+        $("#exampleModal #employee_name").text(employee.employee_name);
+        $("#exampleModal #employee_nip").text(employee.employee_nip);
+        $("#exampleModal #employee_sex").text(employee.employee_sex);
+        $("#exampleModal #employee_position").text(employee.employee_position);
+        $("#exampleModal #employee_mastery").text(employee.employee_mastery);
+        $("#exampleModal .modal-footer #edit").attr('href', 'index.php?page=employee_edit_form&employee_id='+employee.employee_id);
+        $("#exampleModal .modal-footer #delete").attr('href', );
+        $('#exampleModal').modal();
+    }
+
     const getEmployees = (keyword = '') => {
         $.ajax({
             url: `employee/handler/getEmployee.php?keyword=${keyword}`,
@@ -81,6 +140,9 @@
                         <td class="text-center">${value.employee_mastery}</td>
                     `
                         );
+                        tr.on('click', function() {
+                            employeeDetail(value)
+                        });
                         $('tbody').append(tr);
                     })
                 } else {
