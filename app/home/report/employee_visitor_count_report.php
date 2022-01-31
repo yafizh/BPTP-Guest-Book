@@ -15,6 +15,19 @@
             Telepon: (0511) 4772346, Website: http://kalsel.litbang.pertanian.go.id/, Email: bptp-kalsel@litbang.pertanian.go.id
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col text-center">
+            <?php
+                if($_GET['measure'] == "LAST_WEEK") $measure = "Minggu Lalu";
+                else if(($_GET['measure'] == "TODAY")) $measure = "Hari ini";
+                else if(($_GET['measure'] == "LAST_MONTH")) $measure = "Bulan Lalu";
+                else if(($_GET['measure'] == "LAST_YEAR")) $measure = "Tahun Lalu";
+            ?>
+            <h5>Laporan Kunjungan Tiap Pegawai (<?= $measure; ?>)</h5>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col">
             <div class="">

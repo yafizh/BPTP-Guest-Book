@@ -17,6 +17,13 @@
     </div>
     <hr>
     <div class="row">
+        <div class="col text-center">
+            <h5>Laporan Detail Pengunjung</h5>
+            <h6></h6>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
         <div class="col">
             <div class="row justify-content-center">
                 <img src="<?= $_POST['guest']['guest_picture'] ?>" width="175" alt="">

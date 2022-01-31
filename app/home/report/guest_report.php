@@ -15,6 +15,14 @@
             Telepon: (0511) 4772346, Website: http://kalsel.litbang.pertanian.go.id/, Email: bptp-kalsel@litbang.pertanian.go.id
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col text-center">
+            <h5>Laporan Pengunjung</h5>
+            <h6></h6>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col">
             <div class="">
@@ -39,10 +47,14 @@
     <!-- End Default Light Table -->
 </div>
 <script src="utils/functions.js"></script>
+<script src="utils/calendarID.js"></script>
 <script>
     const getGuestDate = (keyword = '') => {
+        const start = '<?= $_GET['start'] ?>';
+        const end = '<?= $_GET['end'] ?>';
+        $("h6").text(`(${start.split('-')[0]} ${MONTH_IN_INDONESIA_WITH_INDEX[parseInt(start.split('-')[1])-1]} ${start.split('-')[2]} - ${end.split('-')[0]} ${MONTH_IN_INDONESIA_WITH_INDEX[parseInt(end.split('-')[1])-1]} ${end.split('-')[2]})`);
         $.ajax({
-            url: `home/handler/getGuestBasedDate.php?start=<?= $_GET['start'] ?>&end=<?= $_GET['end'] ?>`,
+            url: `home/handler/getGuestBasedDate.php?start=${start}&end=${end}`,
             method: 'GET',
             dataType: 'JSON',
             success: function(response) {

@@ -17,6 +17,12 @@
     </div>
     <hr>
     <div class="row">
+        <div class="col text-center">
+            <h5>Laporan Grafik Pengunjung</h5>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
         <div class="col">
             <canvas height="75" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
         </div>

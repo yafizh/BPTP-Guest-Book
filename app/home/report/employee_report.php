@@ -12,9 +12,16 @@
             <br>
             Jl. Panglima Batur No.4, Loktabat Utara, Kec. Banjarbaru Utara, Kota Banjar Baru, Kalimantan Selatan 70711
             <br>
-            Telepon: (0511) 4772346, Website: http://kalsel.litbang.pertanian.go.id/, Email: bptp-kalsel@litbang.pertanian.go.id
+            Telepon: (0511) 4772346 | Website: http://kalsel.litbang.pertanian.go.id/ | Email: bptp-kalsel@litbang.pertanian.go.id
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col text-center">
+            <h5>Laporan Seluruh Pegawai</h5>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col">
             <div class="">
