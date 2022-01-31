@@ -27,25 +27,25 @@
          <ul class="nav flex-column">
              <li class="nav-item">
                  <a class="nav-link <?= isset($_GET['page']) ? "" : "active" ?>" href="index.php">
-                     <i class="material-icons">edit</i>
+                     <i style="font-size: 16px;" class="fas fa-home"></i>
                      <span>Beranda</span>
                  </a>
              </li>
              <li class="nav-item">
                  <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'guest_book') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=guest_book">
-                     <i class="material-icons">vertical_split</i>
+                     <i style="font-size: 16px;" class="far fa-address-book"></i>
                      <span>Buku Tamu</span>
                  </a>
              </li>
              <li class="nav-item">
                  <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'guest_data') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=guest_data">
-                     <i class="material-icons">note_add</i>
+                     <i style="font-size: 16px;" class="fas fa-users"></i>
                      <span>Data Tamu</span>
                  </a>
              </li>
              <li class="nav-item">
                  <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_data' || $_GET['page'] == 'employee_form') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=employee_data">
-                     <i class="material-icons">note_add</i>
+                     <i style="font-size: 16px;" class="fas fa-users"></i>
                      <span>Data Pegawai</span>
                  </a>
              </li>
