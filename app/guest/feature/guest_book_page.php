@@ -78,7 +78,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_name">Nama Tamu</label>
-                                                        <input type="text" class="form-control" name="guest_name" autocomplete="off" required>
+                                                        <input type="text" class="form-control" autofocus name="guest_name" autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -100,12 +100,12 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_agency">Asal Instansi</label>
-                                                        <input type="text" class="form-control" name="guest_agency" required>
+                                                        <input type="text" class="form-control" name="guest_agency" autocomplete="off" required>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_address">Alamat</label>
-                                                        <input type="text" class="form-control" name="guest_address">
+                                                        <input type="text" class="form-control" name="guest_address" autocomplete="off">
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
@@ -125,8 +125,21 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="guest_necessity">Keperluan</label>
-                                                        <input type="text" class="form-control" name="guest_necessity" required>
+                                                        <input type="text" class="form-control" name="guest_necessity" required autocomplete="off">
                                                         <div class="invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="d-block" style="display: block;">Jenis Kelamin</label>
+                                                        <div class="btn-group btn-group-toggle mb-0" data-toggle="buttons">
+                                                            <label class="btn btn-white active">
+                                                                <input type="radio" name="guest_sex" value="MALE" checked>Laki - Laki
+                                                            </label>
+                                                            <label class="btn btn-white">
+                                                                <input type="radio" name="guest_sex" value="FEMALE">Perempuan
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,7 +160,10 @@
                                                 <input id="guest_picture" name="guest_picture" type="text" hidden>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-accent">Tambahkan Tamu</button>
+                                        <hr>
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-accent">Tambahkan Tamu</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

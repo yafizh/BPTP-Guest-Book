@@ -1,3 +1,4 @@
+<?php require_once 'utils/functions.php'; ?>
 <div class="main-content-container container-fluid px-4">
     <div class="row">
         <div class="col-2 p-5">
@@ -50,6 +51,11 @@
                         <div class="col-4">Nomor Telepon</div>
                         <div class="col-auto">:</div>
                         <div class="col-7"><?= $_POST['guest']['guest_phone_number'] ?></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">Jenis Kelamin</div>
+                        <div class="col-auto">:</div>
+                        <div class="col-7"><?= engToIdSex($_POST['guest']['guest_sex']); ?></div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-4">Alamat</div>

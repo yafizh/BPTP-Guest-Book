@@ -99,6 +99,11 @@
                     <div class="col-md-6" id="guest_phone_number"></div>
                 </div>
                 <div class="form-row mb-2">
+                    <div class="col-md-5">Jenis Kelamin</div>
+                    <div class="col-md-auto">:</div>
+                    <div class="col-md-6" id="guest_sex"></div>
+                </div>
+                <div class="form-row mb-2">
                     <div class="col-md-5">Tanggal</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="visit_date"></div>
@@ -161,6 +166,7 @@
         $("#exampleModal img").attr("src", guest.guest_picture);
         $("#exampleModal #guest_name").text(guest.guest_name);
         $("#exampleModal #guest_phone_number").text(guest.guest_phone_number);
+        $("#exampleModal #guest_sex").text(engToIdSex(guest.guest_sex));
         $("#exampleModal #visit_date").text(guest.guest_visit_date);
         $("#exampleModal #visit_time").text(guest.guest_visit_time);
         $("#exampleModal #guest_agency").text(guest.guest_agency);
@@ -168,7 +174,7 @@
         $("#exampleModal #guest_meet_with").text(guest.guest_meet_with);
         $("#exampleModal #guest_necessity").text(guest.guest_necessity);
         document.querySelector('#exampleModal .modal-footer button').onclick = _ => guestDetailPrint(guest);
-        $("#exampleModal .modal-footer #delete").attr('href', 'guest/handler/deleteGuest.php?guest_id='+guest.guest_id);
+        $("#exampleModal .modal-footer #delete").attr('href', 'guest/handler/deleteGuest.php?guest_id=' + guest.guest_id);
         // $("#exampleModal .modal-footer button").unbind('click').bind('click', _ => {
         //     console.log(guest)
         // });
