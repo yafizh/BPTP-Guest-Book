@@ -109,7 +109,7 @@
                     <div class="col-md-6" id="visit_date"></div>
                 </div>
                 <div class="form-row mb-2">
-                    <div class="col-md-5">Waltu</div>
+                    <div class="col-md-5">Waktu</div>
                     <div class="col-md-auto">:</div>
                     <div class="col-md-6" id="visit_time"></div>
                 </div>
