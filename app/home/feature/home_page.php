@@ -197,7 +197,7 @@
                             <div class="card-header border-bottom">
                                 <h6 class="m-0">Jumlah Pegawai</h6>
                             </div>
-                            <div class="card-body p-3 d-flex">
+                            <div class="card-body p-3 d-flex" id="employee-count">
                                 <div class="d-flex flex-column m-auto">
                                     <div class="stats-small__data text-center">
                                         <span class="stats-small__label text-uppercase">Pegawai</span>
@@ -579,4 +579,12 @@
 
     // Render the chart.
     window.BlogOverviewUsers.render();
+
+    $.getJSON(`employee/handler/getEmployee.php?keyword=`, function(response) {
+        if (response.isSuccess) {
+            $("#employee-count .count").text(response.data.length)
+        } else console.log(response)
+    }).fail(function(error) {
+        console.log(error);
+    });
 </script>
