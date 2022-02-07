@@ -171,7 +171,7 @@
         $("#exampleModal #visit_time").text(guest.guest_visit_time);
         $("#exampleModal #guest_agency").text(guest.guest_agency);
         $("#exampleModal #guest_address").text(guest.guest_address);
-        $("#exampleModal #guest_meet_with").text(guest.guest_meet_with);
+        $("#exampleModal #guest_meet_with").text(`${guest.guest_meet_with ? guest.guest_meet_with : 'Pegawai Lainnya'}`);
         $("#exampleModal #guest_necessity").text(guest.guest_necessity);
         document.querySelector('#exampleModal .modal-footer button').onclick = _ => guestDetailPrint(guest);
         $("#exampleModal .modal-footer #delete").attr('href', 'guest/handler/deleteGuest.php?guest_id=' + guest.guest_id);

@@ -75,7 +75,7 @@
                     <div class="row justify-content-center">
                         <div class="col-4">Bertemu</div>
                         <div class="col-auto">:</div>
-                        <div class="col-7"><?= $_POST['guest']['guest_meet_with'] ?></div>
+                        <div class="col-7"><?= $_POST['guest']['guest_meet_with'] ? $_POST['guest']['guest_meet_with'] : 'Pegawai Lainnya'; ?></div>
                     </div>
                 </div>
             </div>
