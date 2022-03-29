@@ -45,8 +45,14 @@
              </li>
              <li class="nav-item">
                  <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'employee_data' || $_GET['page'] == 'employee_form') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=employee_data">
-                     <i style="font-size: 16px;" class="fas fa-users"></i>
+                     <i style="font-size: 16px;" class="fas fa-user-tie"></i>
                      <span>Data Pegawai</span>
+                 </a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link <?= isset($_GET['page']) ? (($_GET['page'] == 'help') ? "active" : "") : "" ?>" href="<?= BASE_URL ?>app/?page=help">
+                     <i style="font-size: 16px;" class="fas fa-question-circle"></i>
+                     <span>Bantuan</span>
                  </a>
              </li>
          </ul>

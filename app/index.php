@@ -2,6 +2,15 @@
 include_once 'templates/header.php';
 if (isset($_GET['page'])) {
   switch ($_GET['page']) {
+    case "help":
+      include_once "templates/sidebar.php";
+      if (isset($_GET['help'])) {
+        if ($_GET['help'] == 'home') include_once "help/feature/home_help.php";
+        else if ($_GET['help'] == 'guest_book') include_once "help/feature/guest_book_help.php";
+        else if ($_GET['help'] == 'guest_data') include_once "help/feature/guest_data_help.php";
+        else if ($_GET['help'] == 'employee_data') include_once "help/feature/employee_data_help.php";
+      } else include_once "help/feature/help.php";
+      break;
     case "guest_book":
       include_once "templates/sidebar.php";
       include_once "guest/feature/guest_book_page.php";
